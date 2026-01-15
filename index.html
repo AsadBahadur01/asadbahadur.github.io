@@ -2,13 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Asad Bahadur | Web Developer & IT Support Specialist</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            touch-action: manipulation;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        /* Dark Theme Variables */
+        .dark-theme {
             --primary-color: #2563eb;
             --primary-dark: #1d4ed8;
             --secondary-color: #3b82f6;
@@ -16,80 +39,63 @@
             --dark-bg: #0f172a;
             --darker-bg: #020617;
             --card-bg: #1e293b;
-            --terminal-bg: #0d1117;
             --text-color: #f1f5f9;
             --text-muted: #94a3b8;
-            --terminal-text: #22c55e;
-            --glow-color: rgba(37, 99, 235, 0.3);
             --border-color: #334155;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --terminal-bg: #0d1117;
+            --terminal-text: #22c55e;
+            --skill-tag-bg: rgba(37, 99, 235, 0.1);
+            --skill-tag-border: rgba(37, 99, 235, 0.3);
+            --input-bg: #1e293b;
+            --input-border: #334155;
+            --input-text: #f1f5f9;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Light Theme Variables */
+        .light-theme {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #3b82f6;
+            --accent-color: #f59e0b;
+            --dark-bg: #f8fafc;
+            --darker-bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-color: #0f172a;
+            --text-muted: #475569;
+            --border-color: #e2e8f0;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --terminal-bg: #ffffff;
+            --terminal-text: #059669;
+            --skill-tag-bg: rgba(37, 99, 235, 0.08);
+            --skill-tag-border: rgba(37, 99, 235, 0.2);
+            --input-bg: #ffffff;
+            --input-border: #e2e8f0;
+            --input-text: #0f172a;
         }
 
+        /* Apply Theme Variables */
         body {
-            font-family: 'Inter', sans-serif;
-            color: var(--text-color);
             background-color: var(--dark-bg);
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(37, 99, 235, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(245, 158, 11, 0.05) 0%, transparent 40%);
-            z-index: -1;
-            pointer-events: none;
+            color: var(--text-color);
         }
 
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Poppins', sans-serif;
             font-weight: 600;
+            color: var(--text-color);
         }
 
-        .terminal-font {
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .section-title {
-            position: relative;
-            margin-bottom: 3rem;
-            padding-bottom: 1rem;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary-color), transparent);
-            border-radius: 2px;
-        }
-
-        .container {
-            max-width: 1200px;
-            padding: 0 1.5rem;
+        p {
+            color: var(--text-muted);
         }
 
         /* Navigation */
         .navbar {
             padding: 1.2rem 0;
-            background-color: rgba(15, 23, 42, 0.95);
+            background-color: var(--darker-bg);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(37, 99, 235, 0.1);
+            border-bottom: 1px solid var(--border-color);
             position: fixed;
             width: 100%;
             top: 0;
@@ -97,47 +103,18 @@
             transition: all 0.3s ease;
         }
 
-        .navbar.scrolled {
-            padding: 0.8rem 0;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        }
-
         .navbar-brand {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Poppins', sans-serif;
             font-weight: 700;
             font-size: 1.5rem;
             color: var(--primary-color) !important;
-            display: flex;
-            align-items: center;
-        }
-
-        .navbar-brand i {
-            margin-right: 0.5rem;
-            color: var(--accent-color);
         }
 
         .nav-link {
             font-weight: 500;
             color: var(--text-color) !important;
             margin: 0 0.5rem;
-            transition: all 0.3s;
-            font-family: 'JetBrains Mono', monospace;
-            position: relative;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary-color);
-            transition: width 0.3s;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
+            transition: color 0.3s;
         }
 
         .nav-link:hover {
@@ -145,77 +122,78 @@
         }
 
         .theme-toggle {
-            background: rgba(37, 99, 235, 0.1);
-            border: 1px solid rgba(37, 99, 235, 0.3);
+            background: var(--skill-tag-bg);
+            border: 1px solid var(--skill-tag-border);
             color: var(--primary-color);
             font-size: 1.1rem;
             cursor: pointer;
             padding: 0.5rem 0.8rem;
-            border-radius: 4px;
+            border-radius: 6px;
             transition: all 0.3s;
         }
 
         .theme-toggle:hover {
-            background: rgba(37, 99, 235, 0.2);
-            box-shadow: 0 0 10px var(--glow-color);
+            background: var(--primary-color);
+            color: white;
+            transform: rotate(15deg);
         }
 
         /* Hero Section */
         .hero {
-            padding: 15rem 0 10rem;
-            background: linear-gradient(180deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+            padding: 180px 0 100px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
             position: relative;
             overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.1;
         }
 
         .hero-content {
             position: relative;
             z-index: 2;
+            text-align: center;
         }
 
         .hero-title {
             font-size: 3.5rem;
             margin-bottom: 1rem;
             line-height: 1.2;
-        }
-
-        .hero-title span {
-            color: var(--primary-color);
-            position: relative;
-        }
-
-        .hero-title span::after {
-            content: '|';
-            animation: blink 1s infinite;
-            margin-left: 2px;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+            color: white;
         }
 
         .hero-subtitle {
             font-size: 1.5rem;
             margin-bottom: 2rem;
-            color: var(--accent-color);
+            color: rgba(255, 255, 255, 0.9);
         }
 
         .hero-intro {
             font-size: 1.1rem;
             max-width: 700px;
-            margin-bottom: 3rem;
-            color: var(--text-muted);
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
         }
 
+        /* Terminal Window */
         .terminal-window {
             background-color: var(--terminal-bg);
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 1.5rem;
             border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px var(--shadow-color);
             max-width: 700px;
-            margin-top: 3rem;
+            margin: 3rem auto 0;
+            overflow: hidden;
         }
 
         .terminal-header {
@@ -243,38 +221,31 @@
 
         .terminal-title {
             margin-left: 1rem;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Poppins', sans-serif;
             color: var(--text-muted);
             font-size: 0.9rem;
         }
 
         .terminal-content {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Courier New', monospace;
             color: var(--terminal-text);
             line-height: 1.8;
+            font-size: 0.95rem;
         }
 
         .terminal-line {
             margin-bottom: 0.5rem;
+            min-height: 1.5em;
         }
 
         .terminal-prompt {
             color: var(--primary-color);
-        }
-
-        .terminal-cursor {
-            display: inline-block;
-            width: 8px;
-            height: 16px;
-            background-color: var(--terminal-text);
-            animation: blink 1s infinite;
-            vertical-align: middle;
-            margin-left: 2px;
+            font-weight: 600;
         }
 
         /* Section Common */
         .section {
-            padding: 6rem 0;
+            padding: 80px 0;
             position: relative;
         }
 
@@ -282,92 +253,38 @@
             background-color: var(--darker-bg);
         }
 
-        /* About Section */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-image {
+        .section-title {
             position: relative;
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            font-size: 2.5rem;
         }
 
-        .profile-container {
-            width: 300px;
-            height: 300px;
-            position: relative;
-            margin: 0 auto;
-        }
-
-        .profile-hexagon {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5rem;
-            color: white;
-            font-weight: 700;
-            position: relative;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        .profile-hexagon::after {
+        .section-title::after {
             content: '';
             position: absolute;
-            top: 3px;
-            left: 3px;
-            right: 3px;
-            bottom: 3px;
-            background-color: var(--dark-bg);
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            z-index: 1;
-        }
-
-        .profile-text {
-            position: relative;
-            z-index: 2;
-        }
-
-        .about-details {
-            margin-top: 2rem;
-        }
-
-        .detail-item {
-            display: flex;
-            margin-bottom: 1.5rem;
-        }
-
-        .detail-icon {
-            color: var(--primary-color);
-            margin-right: 1rem;
-            font-size: 1.2rem;
-            margin-top: 0.2rem;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), transparent);
+            border-radius: 2px;
         }
 
         /* Skills Section */
         .skill-category {
             background-color: var(--card-bg);
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 2rem;
             margin-bottom: 2rem;
             border: 1px solid var(--border-color);
             transition: all 0.3s;
+            box-shadow: 0 5px 15px var(--shadow-color);
         }
 
         .skill-category:hover {
             transform: translateY(-5px);
-            border-color: var(--primary-color);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 30px var(--shadow-color);
         }
 
         .skill-category h3 {
@@ -375,10 +292,12 @@
             margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
+            font-size: 1.5rem;
         }
 
         .skill-category h3 i {
             margin-right: 0.75rem;
+            font-size: 1.2rem;
         }
 
         .skill-list {
@@ -388,105 +307,73 @@
         }
 
         .skill-tag {
-            background: rgba(37, 99, 235, 0.1);
-            border: 1px solid rgba(37, 99, 235, 0.3);
-            color: var(--secondary-color);
+            background: var(--skill-tag-bg);
+            border: 1px solid var(--skill-tag-border);
+            color: var(--primary-color);
             padding: 0.5rem 1rem;
-            border-radius: 4px;
-            font-family: 'JetBrains Mono', monospace;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
             font-size: 0.9rem;
+            font-weight: 500;
             transition: all 0.3s;
+            display: inline-block;
         }
 
         .skill-tag:hover {
-            background: rgba(37, 99, 235, 0.2);
+            background: var(--primary-color);
+            color: white;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px var(--glow-color);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
         }
 
-        .skill-tag.expert { border-color: #22c55e; background: rgba(34, 197, 94, 0.1); }
-        .skill-tag.advanced { border-color: #f59e0b; background: rgba(245, 158, 11, 0.1); }
-        .skill-tag.intermediate { border-color: #8b5cf6; background: rgba(139, 92, 246, 0.1); }
-
-        /* Services Section */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
+        /* Projects Section */
+        .project-card {
             background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            overflow: hidden;
             border: 1px solid var(--border-color);
             transition: all 0.3s;
-            text-align: center;
             height: 100%;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            margin-bottom: 2rem;
         }
 
-        .service-card:hover {
+        .project-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 20px 40px var(--shadow-color);
             border-color: var(--primary-color);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
 
-        .service-icon {
-            font-size: 3rem;
+        .project-header {
+            padding: 2rem 2rem 0;
+        }
+
+        .project-icon {
+            font-size: 2.5rem;
             color: var(--primary-color);
             margin-bottom: 1.5rem;
         }
 
-        .service-features {
-            margin-top: 1.5rem;
-            text-align: left;
+        .project-content {
+            padding: 0 2rem 2rem;
+        }
+
+        .project-features {
+            margin: 1.5rem 0;
         }
 
         .feature-item {
             display: flex;
             margin-bottom: 0.75rem;
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
 
         .feature-item i {
             color: var(--primary-color);
             margin-right: 0.75rem;
             margin-top: 0.2rem;
-        }
-
-        /* Projects Section */
-        .project-card {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s;
-            height: 100%;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary-color);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .project-header {
-            padding: 1.5rem 1.5rem 0;
-        }
-
-        .project-icon {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .project-content {
-            padding: 1.5rem;
-        }
-
-        .project-features {
-            margin: 1.5rem 0;
+            flex-shrink: 0;
         }
 
         .tech-stack {
@@ -497,86 +384,37 @@
         }
 
         .tech-item {
-            background: rgba(37, 99, 235, 0.1);
+            background: var(--skill-tag-bg);
             color: var(--primary-color);
             padding: 0.25rem 0.75rem;
             border-radius: 4px;
             font-size: 0.8rem;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        /* Education Section */
-        .education-card {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 2rem;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s;
-            height: 100%;
-        }
-
-        .education-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .education-icon {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-        }
-
-        .progress-container {
-            margin-top: 1.5rem;
-        }
-
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .progress-bar {
-            height: 8px;
-            background-color: var(--darker-bg);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            border-radius: 4px;
-            width: 70%; /* BS Completion 70% */
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
         }
 
         /* Contact Section */
-        .contact-section {
-            text-align: center;
-        }
-
         .contact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
 
         .contact-card {
             background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 2rem;
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
             border: 1px solid var(--border-color);
             transition: all 0.3s;
+            text-align: center;
+            box-shadow: 0 5px 15px var(--shadow-color);
         }
 
         .contact-card:hover {
             transform: translateY(-5px);
             border-color: var(--primary-color);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 30px var(--shadow-color);
         }
 
         .contact-icon {
@@ -586,33 +424,35 @@
         }
 
         .btn-custom {
-            background: rgba(37, 99, 235, 0.1);
-            border: 1px solid rgba(37, 99, 235, 0.3);
+            background: var(--skill-tag-bg);
+            border: 1px solid var(--skill-tag-border);
             color: var(--primary-color);
-            padding: 0.5rem 1.5rem;
-            border-radius: 4px;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
             transition: all 0.3s;
             text-decoration: none;
             display: inline-block;
-            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            margin-top: 1rem;
         }
 
         .btn-custom:hover {
-            background: rgba(37, 99, 235, 0.2);
-            box-shadow: 0 0 15px var(--glow-color);
-            color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
         }
 
         /* Footer */
         .footer {
             padding: 3rem 0;
             background-color: var(--darker-bg);
-            border-top: 1px solid rgba(37, 99, 235, 0.1);
+            border-top: 1px solid var(--border-color);
             text-align: center;
         }
 
         .footer-logo {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Poppins', sans-serif;
             font-weight: 700;
             font-size: 1.5rem;
             color: var(--primary-color);
@@ -627,8 +467,8 @@
         }
 
         .social-link {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             background-color: var(--card-bg);
             display: flex;
@@ -637,50 +477,94 @@
             color: var(--text-color);
             font-size: 1.2rem;
             transition: all 0.3s;
+            border: 1px solid var(--border-color);
         }
 
         .social-link:hover {
             background-color: var(--primary-color);
-            color: var(--dark-bg);
+            color: white;
             transform: translateY(-3px);
+            border-color: var(--primary-color);
         }
 
         /* Responsive Design */
-        @media (max-width: 992px) {
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-            
+        @media (max-width: 1200px) {
             .hero-title {
-                font-size: 2.8rem;
+                font-size: 3rem;
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero {
+                padding: 150px 0 80px;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+            .section {
+                padding: 60px 0;
             }
         }
 
         @media (max-width: 768px) {
             .hero {
-                padding: 12rem 0 6rem;
+                padding: 130px 0 60px;
             }
-            
             .hero-title {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
-            
             .hero-subtitle {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
-            
+            .hero-intro {
+                font-size: 1rem;
+            }
             .section {
-                padding: 4rem 0;
+                padding: 50px 0;
             }
-            
-            .profile-container {
-                width: 250px;
-                height: 250px;
+            .section-title {
+                font-size: 1.8rem;
             }
-            
-            .profile-hexagon {
-                font-size: 4rem;
+            .terminal-window {
+                margin: 2rem auto 0;
+                padding: 1rem;
+            }
+            .skill-category {
+                padding: 1.5rem;
+            }
+            .project-header, .project-content {
+                padding: 1.5rem;
+            }
+            .contact-card {
+                padding: 2rem 1.5rem;
+            }
+            .navbar-nav {
+                text-align: center;
+                padding-top: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            .section-title {
+                font-size: 1.6rem;
+            }
+            .skill-tag, .tech-item {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.8rem;
+            }
+            .social-link {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
             }
         }
 
@@ -696,33 +580,77 @@
             transform: translateY(0);
         }
 
-        .glow {
-            animation: glow 2s ease-in-out infinite alternate;
+        /* Prevent zoom */
+        @media (pointer: coarse) {
+            input, textarea, select, button {
+                font-size: 16px !important;
+            }
         }
 
-        @keyframes glow {
-            from { text-shadow: 0 0 5px var(--primary-color); }
-            to { text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color); }
+        /* Loading Animation */
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-top: 2px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+            border: none;
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(-5px);
         }
     </style>
 </head>
-<body>
+<body class="dark-theme">
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <i class="fas fa-code"></i> Asad_Bahadur
+                <i class="fas fa-code"></i> Asad Bahadur
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"><i class="fas fa-bars" style="color: var(--primary-color);"></i></span>
+                <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#services">Services</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#skills">Skills</a>
@@ -731,13 +659,10 @@
                         <a class="nav-link" href="#projects">Projects</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#education">Education</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#contact">Contact</a>
                     </li>
                     <li class="nav-item ms-2">
-                        <button class="theme-toggle" id="themeToggle">
+                        <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
                             <i class="fas fa-moon"></i>
                         </button>
                     </li>
@@ -746,13 +671,18 @@
         </div>
     </nav>
 
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1 class="hero-title fade-in"><span>Asad Bahadur</span></h1>
+                <h1 class="hero-title fade-in">Asad Bahadur</h1>
                 <h2 class="hero-subtitle fade-in">Web Developer & IT Support Specialist</h2>
-                <p class="hero-intro fade-in">I specialize in website development, design, and IT support services. With expertise in coding, system administration, and network support, I build functional, efficient, and user-friendly digital solutions for businesses and individuals.</p>
+                <p class="hero-intro fade-in">I specialize in website development, design, and IT support services. With expertise in coding, system administration, and network support, I build functional, efficient, and user-friendly digital solutions.</p>
                 
                 <div class="terminal-window fade-in">
                     <div class="terminal-header">
@@ -763,15 +693,8 @@
                         </div>
                         <div class="terminal-title">asad@portfolio:~</div>
                     </div>
-                    <div class="terminal-content">
-                        <div class="terminal-line"><span class="terminal-prompt">$</span> whoami</div>
-                        <div class="terminal-line">Web Developer | IT Support Specialist | System Administrator</div>
-                        <div class="terminal-line"><span class="terminal-prompt">$</span> cat services.txt</div>
-                        <div class="terminal-line">> Website Development & Design</div>
-                        <div class="terminal-line">> IT Help Desk Support</div>
-                        <div class="terminal-line">> Network Administration</div>
-                        <div class="terminal-line">> System Maintenance</div>
-                        <div class="terminal-line"><span class="terminal-prompt">$</span> <span class="terminal-cursor"></span></div>
+                    <div class="terminal-content" id="terminalContent">
+                        <!-- Terminal content will be populated by JavaScript -->
                     </div>
                 </div>
             </div>
@@ -782,226 +705,30 @@
     <section id="about" class="section">
         <div class="container">
             <h2 class="section-title fade-in">About Me</h2>
-            <div class="about-grid">
-                <div class="about-image fade-in">
-                    <div class="profile-container">
-                        <div class="profile-hexagon">
-                            <div class="profile-text">AB</div>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="text-center fade-in">
+                        <div style="width: 300px; height: 300px; margin: 0 auto; background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 5rem; font-weight: 700; box-shadow: 0 20px 40px rgba(37, 99, 235, 0.3);">
+                            AB
                         </div>
                     </div>
-                    
-                    <div class="about-details">
-                        <div class="detail-item">
-                            <div class="detail-icon"><i class="fas fa-map-marker-alt"></i></div>
-                            <div>
-                                <h5>Location</h5>
-                                <p>Karachi, Pakistan</p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="fade-in">
+                        <h3 class="mb-4">Web Developer & IT Specialist</h3>
+                        <p class="mb-3">I'm a passionate web developer and IT support professional with hands-on experience in creating responsive websites, providing technical support, and managing IT infrastructure.</p>
+                        <p class="mb-3">I enjoy solving technical problems, whether it's debugging code, troubleshooting network issues, or optimizing system performance.</p>
+                        <p class="mb-4">Currently, I'm focused on expanding my expertise in modern web technologies while providing comprehensive IT support services.</p>
+                        
+                        <div>
+                            <h5 class="mb-3">Current Focus:</h5>
+                            <div class="skill-list">
+                                <span class="skill-tag">Frontend Development</span>
+                                <span class="skill-tag">Backend Programming</span>
+                                <span class="skill-tag">IT Troubleshooting</span>
+                                <span class="skill-tag">Network Support</span>
+                                <span class="skill-tag">System Administration</span>
                             </div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-icon"><i class="fas fa-user-tie"></i></div>
-                            <div>
-                                <h5>Focus Areas</h5>
-                                <p>Web Development & IT Support</p>
-                            </div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-icon"><i class="fas fa-briefcase"></i></div>
-                            <div>
-                                <h5>Availability</h5>
-                                <p>Open for Projects & Positions</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="about-text fade-in">
-                    <h3 class="mb-4">Web Developer & IT Specialist</h3>
-                    <p>I'm a passionate web developer and IT support professional with hands-on experience in creating responsive websites, providing technical support, and managing IT infrastructure. My journey in technology began with an interest in how websites work, which evolved into expertise in full-stack development and IT systems management.</p>
-                    
-                    <p class="my-3">I enjoy solving technical problems, whether it's debugging code, troubleshooting network issues, or optimizing system performance. My approach combines technical skills with practical problem-solving to deliver reliable solutions that meet user needs.</p>
-                    
-                    <p>Currently, I'm focused on expanding my expertise in modern web technologies while providing comprehensive IT support services to businesses and individuals.</p>
-                    
-                    <div class="mt-4">
-                        <h5>Current Focus:</h5>
-                        <div class="d-flex flex-wrap mt-2">
-                            <span class="skill-tag me-2 mb-2">Frontend Development</span>
-                            <span class="skill-tag me-2 mb-2">Backend Programming</span>
-                            <span class="skill-tag me-2 mb-2">IT Troubleshooting</span>
-                            <span class="skill-tag me-2 mb-2">Network Support</span>
-                            <span class="skill-tag me-2 mb-2">System Administration</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="section section-alt">
-        <div class="container">
-            <h2 class="section-title fade-in">My Services</h2>
-            
-            <div class="services-grid">
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <h3>Website Development</h3>
-                    <p>Custom website development using modern technologies and best practices.</p>
-                    
-                    <div class="service-features">
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>Responsive Web Design</div>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>Frontend & Backend Development</div>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>Database Integration</div>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>Website Maintenance</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <i class="fas fa-paint-brush"></i>
-                    </div>
-                    <h3>Website Design</h3>
-                    <p>Creative and user-friendly website designs that engage visitors.</p>
-                    
-                    <div class="service-features">
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>UI/UX Design</div>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>Wireframing & Prototyping</div>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>Graphic Design Elements</div>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>Brand Consistency</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h3>IT Help Desk Support</h3>
-                    <p>Comprehensive technical support for hardware, software, and network issues.</p>
-                    
-                    <div class="service-features">
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>Technical Troubleshooting</div>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>Software Installation & Configuration</div>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>User Support & Training</div>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>Remote Support Services</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <i class="fas fa-network-wired"></i>
-                    </div>
-                    <h3>IT Network Support</h3>
-                    <p>Network setup, configuration, and maintenance for optimal performance.</p>
-                    
-                    <div class="service-features">
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>Network Setup & Configuration</div>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>Troubleshooting Connectivity Issues</div>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>Network Security Implementation</div>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>Performance Monitoring</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <i class="fas fa-server"></i>
-                    </div>
-                    <h3>System Administration</h3>
-                    <p>Management and maintenance of computer systems and servers.</p>
-                    
-                    <div class="service-features">
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>Server Setup & Maintenance</div>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>User Account Management</div>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>Backup & Recovery Solutions</div>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>System Updates & Security Patches</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Coding & Programming</h3>
-                    <p>Custom application development and programming solutions.</p>
-                    
-                    <div class="service-features">
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>PHP & MySQL Applications</div>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>JavaScript Functionality</div>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>Custom Script Development</div>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <div>API Integration</div>
                         </div>
                     </div>
                 </div>
@@ -1010,7 +737,7 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="section">
+    <section id="skills" class="section section-alt">
         <div class="container">
             <h2 class="section-title fade-in">Technical Skills</h2>
             
@@ -1019,14 +746,14 @@
                     <div class="skill-category">
                         <h3><i class="fas fa-code"></i> Web Development</h3>
                         <div class="skill-list">
-                            <span class="skill-tag expert">HTML5 & CSS3</span>
-                            <span class="skill-tag expert">Bootstrap 5</span>
-                            <span class="skill-tag advanced">JavaScript</span>
-                            <span class="skill-tag expert">PHP</span>
-                            <span class="skill-tag expert">MySQL</span>
-                            <span class="skill-tag intermediate">React Basics</span>
-                            <span class="skill-tag advanced">Responsive Design</span>
-                            <span class="skill-tag intermediate">Git & GitHub</span>
+                            <span class="skill-tag">HTML5 & CSS3</span>
+                            <span class="skill-tag">Bootstrap 5</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">PHP</span>
+                            <span class="skill-tag">MySQL</span>
+                            <span class="skill-tag">Responsive Design</span>
+                            <span class="skill-tag">Git & GitHub</span>
+                            <span class="skill-tag">VS Code</span>
                         </div>
                     </div>
                 </div>
@@ -1035,14 +762,14 @@
                     <div class="skill-category">
                         <h3><i class="fas fa-tools"></i> IT Support</h3>
                         <div class="skill-list">
-                            <span class="skill-tag expert">Hardware Troubleshooting</span>
-                            <span class="skill-tag expert">Software Installation</span>
-                            <span class="skill-tag advanced">System Configuration</span>
-                            <span class="skill-tag expert">User Support</span>
-                            <span class="skill-tag advanced">Remote Assistance</span>
-                            <span class="skill-tag intermediate">Ticket Management</span>
-                            <span class="skill-tag expert">Problem Resolution</span>
-                            <span class="skill-tag advanced">Documentation</span>
+                            <span class="skill-tag">Hardware Troubleshooting</span>
+                            <span class="skill-tag">Software Installation</span>
+                            <span class="skill-tag">System Configuration</span>
+                            <span class="skill-tag">User Support</span>
+                            <span class="skill-tag">Remote Assistance</span>
+                            <span class="skill-tag">Problem Resolution</span>
+                            <span class="skill-tag">Documentation</span>
+                            <span class="skill-tag">TeamViewer</span>
                         </div>
                     </div>
                 </div>
@@ -1051,48 +778,14 @@
                     <div class="skill-category">
                         <h3><i class="fas fa-server"></i> System Administration</h3>
                         <div class="skill-list">
-                            <span class="skill-tag advanced">Windows Server</span>
-                            <span class="skill-tag intermediate">Linux Administration</span>
-                            <span class="skill-tag advanced">Active Directory</span>
-                            <span class="skill-tag intermediate">PowerShell</span>
-                            <span class="skill-tag expert">System Monitoring</span>
-                            <span class="skill-tag advanced">Backup Solutions</span>
-                            <span class="skill-tag intermediate">Virtualization</span>
-                            <span class="skill-tag advanced">Security Updates</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row mt-2">
-                <div class="col-lg-6 mb-4 fade-in">
-                    <div class="skill-category">
-                        <h3><i class="fas fa-network-wired"></i> Networking</h3>
-                        <div class="skill-list">
-                            <span class="skill-tag advanced">TCP/IP Protocols</span>
-                            <span class="skill-tag intermediate">DNS & DHCP</span>
-                            <span class="skill-tag intermediate">Router Configuration</span>
-                            <span class="skill-tag advanced">Switch Management</span>
-                            <span class="skill-tag expert">Network Troubleshooting</span>
-                            <span class="skill-tag intermediate">Wireless Networks</span>
-                            <span class="skill-tag advanced">Network Security</span>
-                            <span class="skill-tag intermediate">VPN Setup</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6 mb-4 fade-in">
-                    <div class="skill-category">
-                        <h3><i class="fas fa-desktop"></i> Tools & Software</h3>
-                        <div class="skill-list">
-                            <span class="skill-tag expert">VS Code</span>
-                            <span class="skill-tag expert">XAMPP</span>
-                            <span class="skill-tag advanced">phpMyAdmin</span>
-                            <span class="skill-tag intermediate">Docker Basics</span>
-                            <span class="skill-tag expert">Microsoft Office 365</span>
-                            <span class="skill-tag advanced">Remote Desktop</span>
-                            <span class="skill-tag intermediate">TeamViewer</span>
-                            <span class="skill-tag advanced">Antivirus Solutions</span>
+                            <span class="skill-tag">Windows Server</span>
+                            <span class="skill-tag">Linux Administration</span>
+                            <span class="skill-tag">Active Directory</span>
+                            <span class="skill-tag">PowerShell</span>
+                            <span class="skill-tag">System Monitoring</span>
+                            <span class="skill-tag">Backup Solutions</span>
+                            <span class="skill-tag">Security Updates</span>
+                            <span class="skill-tag">Virtualization</span>
                         </div>
                     </div>
                 </div>
@@ -1101,7 +794,7 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="section section-alt">
+    <section id="projects" class="section">
         <div class="container">
             <h2 class="section-title fade-in">Recent Projects</h2>
             
@@ -1115,7 +808,7 @@
                             <h3>Inventory Management System</h3>
                         </div>
                         <div class="project-content">
-                            <p>A comprehensive inventory management solution with role-based access control for Admin, Inventory Officer, and Vendor roles. Features include stock management, BOQ, Purchase Orders, and vendor transaction tracking.</p>
+                            <p>A comprehensive inventory management solution with role-based access control for Admin, Inventory Officer, and Vendor roles.</p>
                             
                             <div class="project-features">
                                 <div class="feature-item">
@@ -1130,10 +823,6 @@
                                     <i class="fas fa-check-circle"></i>
                                     <div>Automated report generation</div>
                                 </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-check-circle"></i>
-                                    <div>Vendor management portal</div>
-                                </div>
                             </div>
                             
                             <div class="tech-stack">
@@ -1141,7 +830,6 @@
                                 <span class="tech-item">MySQL</span>
                                 <span class="tech-item">JavaScript</span>
                                 <span class="tech-item">Bootstrap 5</span>
-                                <span class="tech-item">AJAX</span>
                             </div>
                         </div>
                     </div>
@@ -1156,7 +844,7 @@
                             <h3>Customer Feedback System</h3>
                         </div>
                         <div class="project-content">
-                            <p>A responsive customer feedback management system with admin dashboard, analytics, filtering options, export capabilities, and comprehensive reporting features.</p>
+                            <p>A responsive customer feedback management system with admin dashboard, analytics, and comprehensive reporting features.</p>
                             
                             <div class="project-features">
                                 <div class="feature-item">
@@ -1171,10 +859,6 @@
                                     <i class="fas fa-check-circle"></i>
                                     <div>Data export to Excel/PDF</div>
                                 </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-check-circle"></i>
-                                    <div>Real-time data visualization</div>
-                                </div>
                             </div>
                             
                             <div class="tech-stack">
@@ -1182,132 +866,6 @@
                                 <span class="tech-item">MySQL</span>
                                 <span class="tech-item">Chart.js</span>
                                 <span class="tech-item">Bootstrap 5</span>
-                                <span class="tech-item">DataTables</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row mt-3">
-                <div class="col-lg-6 mb-4 fade-in">
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-laptop-house"></i>
-                            </div>
-                            <h3>IT Help Desk Portal</h3>
-                        </div>
-                        <div class="project-content">
-                            <p>A web-based IT support portal for tracking technical issues, managing support tickets, and providing solutions to common problems with knowledge base integration.</p>
-                            
-                            <div class="project-features">
-                                <div class="feature-item">
-                                    <i class="fas fa-check-circle"></i>
-                                    <div>Ticket submission and tracking</div>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-check-circle"></i>
-                                    <div>Knowledge base with solutions</div>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-check-circle"></i>
-                                    <div>Priority-based assignment system</div>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-check-circle"></i>
-                                    <div>User satisfaction rating system</div>
-                                </div>
-                            </div>
-                            
-                            <div class="tech-stack">
-                                <span class="tech-item">PHP</span>
-                                <span class="tech-item">MySQL</span>
-                                <span class="tech-item">JavaScript</span>
-                                <span class="tech-item">Bootstrap</span>
-                                <span class="tech-item">jQuery</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6 mb-4 fade-in">
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-network-wired"></i>
-                            </div>
-                            <h3>Network Monitoring Dashboard</h3>
-                        </div>
-                        <div class="project-content">
-                            <p>A web-based dashboard for monitoring network devices, tracking connectivity status, and receiving alerts for network issues or downtime.</p>
-                            
-                            <div class="project-features">
-                                <div class="feature-item">
-                                    <i class="fas fa-check-circle"></i>
-                                    <div>Device status monitoring</div>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-check-circle"></i>
-                                    <div>Uptime/downtime tracking</div>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-check-circle"></i>
-                                    <div>Email/SMS notifications</div>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-check-circle"></i>
-                                    <div>Historical performance data</div>
-                                </div>
-                            </div>
-                            
-                            <div class="tech-stack">
-                                <span class="tech-item">PHP</span>
-                                <span class="tech-item">MySQL</span>
-                                <span class="tech-item">JavaScript</span>
-                                <span class="tech-item">Bootstrap</span>
-                                <span class="tech-item">AJAX</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education Section -->
-    <section id="education" class="section">
-        <div class="container">
-            <h2 class="section-title fade-in">Education</h2>
-            
-            <div class="row">
-                <div class="col-lg-8 mx-auto fade-in">
-                    <div class="education-card">
-                        <div class="education-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <h3>Bachelor of Science (BS) - In Progress</h3>
-                        <p class="text-muted mb-3">Field: Information Technology</p>
-                        <p>Currently pursuing a Bachelor's degree in Information Technology with a focus on web technologies, system administration, and network fundamentals. The program provides comprehensive knowledge of modern IT systems and practical skills for technology implementation and support.</p>
-                        
-                        <div class="progress-container">
-                            <div class="progress-label">
-                                <span>Degree Completion Progress</span>
-                                <span>70%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-4">
-                            <h5>Relevant Coursework:</h5>
-                            <div class="d-flex flex-wrap mt-2">
-                                <span class="skill-tag me-2 mb-2">Web Technologies</span>
-                                <span class="skill-tag me-2 mb-2">Database Systems</span>
-                                <span class="skill-tag me-2 mb-2">Networking Fundamentals</span>
-                                <span class="skill-tag me-2 mb-2">System Administration</span>
-                                <span class="skill-tag me-2 mb-2">Programming Fundamentals</span>
                             </div>
                         </div>
                     </div>
@@ -1320,7 +878,7 @@
     <section id="contact" class="section section-alt">
         <div class="container">
             <h2 class="section-title fade-in">Get In Touch</h2>
-            <p class="text-center mb-5 fade-in">Interested in web development projects, IT support services, or collaboration opportunities? Let's connect.</p>
+            <p class="text-center mb-5 fade-in">Interested in web development projects or IT support services? Let's connect.</p>
             
             <div class="contact-grid">
                 <div class="contact-card fade-in">
@@ -1329,7 +887,7 @@
                     </div>
                     <h4>Email</h4>
                     <p>asadbahadur07@gmail.com</p>
-                    <a href="mailto:asadbahadur07@gmail.com" class="btn-custom mt-3">Send Email</a>
+                    <a href="mailto:asadbahadur07@gmail.com" class="btn-custom">Send Email</a>
                 </div>
                 
                 <div class="contact-card fade-in">
@@ -1338,7 +896,7 @@
                     </div>
                     <h4>LinkedIn</h4>
                     <p>asad-bahadur-b206752b2</p>
-                    <a href="https://www.linkedin.com/in/asad-bahadur-b206752b2/" target="_blank" class="btn-custom mt-3">Connect on LinkedIn</a>
+                    <a href="https://www.linkedin.com/in/asad-bahadur-b206752b2/" target="_blank" class="btn-custom">Connect on LinkedIn</a>
                 </div>
                 
                 <div class="contact-card fade-in">
@@ -1347,21 +905,7 @@
                     </div>
                     <h4>GitHub</h4>
                     <p>github.com/asadbahadur</p>
-                    <a href="https://github.com/asadbahadur" target="_blank" class="btn-custom mt-3">View Projects</a>
-                </div>
-            </div>
-            
-            <div class="mt-5 fade-in">
-                <h4 class="text-center mb-4">Career Objective</h4>
-                <div class="terminal-window" style="max-width: 800px; margin: 0 auto;">
-                    <div class="terminal-content">
-                        <div class="terminal-line"><span class="terminal-prompt">$</span> cat career_objective.txt</div>
-                        <div class="terminal-line">"To obtain a challenging position in web development or IT support where I can apply</div>
-                        <div class="terminal-line">my technical skills in coding, website development, and system administration to</div>
-                        <div class="terminal-line">create efficient solutions, support technology infrastructure, and contribute to</div>
-                        <div class="terminal-line">organizational success through continuous learning and technical expertise."</div>
-                        <div class="terminal-line"><span class="terminal-prompt">$</span> <span class="terminal-cursor"></span></div>
-                    </div>
+                    <a href="https://github.com/asadbahadur" target="_blank" class="btn-custom">View Projects</a>
                 </div>
             </div>
         </div>
@@ -1371,7 +915,7 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-logo">
-                <i class="fas fa-code"></i> Asad_Bahadur
+                <i class="fas fa-code"></i> Asad Bahadur
             </div>
             
             <div class="social-links">
@@ -1388,55 +932,138 @@
             
             <p class="mb-3">Web Developer | IT Support Specialist | System Administrator</p>
             <p>&copy; <span id="currentYear"></span> Asad Bahadur. All rights reserved.</p>
-            <p class="text-muted mt-2">Specializing in website development, design, and comprehensive IT support services</p>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Theme Toggle
+        // Theme Toggle with Proper Theme Switching
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = themeToggle.querySelector('i');
         
+        // Check for saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        if (savedTheme === 'light') {
+            document.body.classList.remove('dark-theme');
+            document.body.classList.add('light-theme');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+        
         themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-            
-            if (document.body.classList.contains('light-mode')) {
+            if (document.body.classList.contains('dark-theme')) {
+                // Switch to light theme
+                document.body.classList.remove('dark-theme');
+                document.body.classList.add('light-theme');
                 themeIcon.classList.remove('fa-moon');
                 themeIcon.classList.add('fa-sun');
-                
-                // Update CSS variables for light mode
-                document.documentElement.style.setProperty('--dark-bg', '#f8fafc');
-                document.documentElement.style.setProperty('--darker-bg', '#f1f5f9');
-                document.documentElement.style.setProperty('--card-bg', '#ffffff');
-                document.documentElement.style.setProperty('--text-color', '#0f172a');
-                document.documentElement.style.setProperty('--text-muted', '#475569');
-                document.documentElement.style.setProperty('--border-color', '#e2e8f0');
+                localStorage.setItem('theme', 'light');
             } else {
+                // Switch to dark theme
+                document.body.classList.remove('light-theme');
+                document.body.classList.add('dark-theme');
                 themeIcon.classList.remove('fa-sun');
                 themeIcon.classList.add('fa-moon');
-                
-                // Reset to dark mode
-                document.documentElement.style.setProperty('--dark-bg', '#0f172a');
-                document.documentElement.style.setProperty('--darker-bg', '#020617');
-                document.documentElement.style.setProperty('--card-bg', '#1e293b');
-                document.documentElement.style.setProperty('--text-color', '#f1f5f9');
-                document.documentElement.style.setProperty('--text-muted', '#94a3b8');
-                document.documentElement.style.setProperty('--border-color', '#334155');
+                localStorage.setItem('theme', 'dark');
             }
         });
         
-        // Set current year in footer
+        // Set current year
         document.getElementById('currentYear').textContent = new Date().getFullYear();
         
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
+        // Terminal typing effect
+        const terminalContent = document.getElementById('terminalContent');
+        const terminalLines = [
+            {text: "$ whoami", delay: 500},
+            {text: "Web Developer | IT Support Specialist | System Administrator", delay: 1000},
+            {text: "$ cat services.txt", delay: 500},
+            {text: "> Website Development & Design", delay: 300},
+            {text: "> IT Help Desk Support", delay: 300},
+            {text: "> Network Administration", delay: 300},
+            {text: "> System Maintenance", delay: 300},
+            {text: "$ ", delay: 1000}
+        ];
+        
+        let currentLine = 0;
+        let currentChar = 0;
+        
+        function typeTerminal() {
+            if (currentLine < terminalLines.length) {
+                const line = terminalLines[currentLine];
+                
+                if (currentChar === 0) {
+                    const lineElement = document.createElement('div');
+                    lineElement.className = 'terminal-line';
+                    if (line.text.startsWith('$')) {
+                        const promptSpan = document.createElement('span');
+                        promptSpan.className = 'terminal-prompt';
+                        promptSpan.textContent = '$ ';
+                        lineElement.appendChild(promptSpan);
+                        
+                        const textSpan = document.createElement('span');
+                        textSpan.textContent = line.text.substring(2);
+                        lineElement.appendChild(textSpan);
+                    } else if (line.text.startsWith('>')) {
+                        lineElement.innerHTML = `<span style="color: var(--accent-color);">${line.text}</span>`;
+                    } else {
+                        lineElement.textContent = line.text;
+                    }
+                    terminalContent.appendChild(lineElement);
+                }
+                
+                currentChar++;
+                
+                if (currentChar >= line.text.length) {
+                    currentLine++;
+                    currentChar = 0;
+                    setTimeout(typeTerminal, line.delay);
+                } else {
+                    setTimeout(typeTerminal, 30);
+                }
             } else {
-                navbar.classList.remove('scrolled');
+                // Add blinking cursor
+                const cursorElement = document.createElement('span');
+                cursorElement.className = 'terminal-cursor';
+                cursorElement.style.display = 'inline-block';
+                cursorElement.style.width = '8px';
+                cursorElement.style.height = '16px';
+                cursorElement.style.backgroundColor = 'var(--terminal-text)';
+                cursorElement.style.animation = 'blink 1s infinite';
+                cursorElement.style.verticalAlign = 'middle';
+                cursorElement.style.marginLeft = '2px';
+                terminalContent.lastElementChild.appendChild(cursorElement);
+                
+                // Restart animation after 10 seconds
+                setTimeout(() => {
+                    terminalContent.innerHTML = '';
+                    currentLine = 0;
+                    currentChar = 0;
+                    setTimeout(typeTerminal, 1000);
+                }, 10000);
             }
+        }
+        
+        // Start terminal typing after page load
+        window.addEventListener('load', () => {
+            setTimeout(typeTerminal, 1000);
+        });
+        
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+        
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
         
         // Smooth scrolling for navigation links
@@ -1457,43 +1084,6 @@
             });
         });
         
-        // Terminal typing effect
-        const terminalLines = document.querySelectorAll('.terminal-line');
-        let lineIndex = 0;
-        
-        function typeTerminalLine() {
-            if (lineIndex < terminalLines.length) {
-                const line = terminalLines[lineIndex];
-                const text = line.textContent;
-                line.textContent = '';
-                line.style.display = 'block';
-                
-                let charIndex = 0;
-                const typingInterval = setInterval(() => {
-                    if (charIndex < text.length) {
-                        line.textContent += text.charAt(charIndex);
-                        charIndex++;
-                    } else {
-                        clearInterval(typingInterval);
-                        lineIndex++;
-                        setTimeout(typeTerminalLine, 500);
-                    }
-                }, 30);
-            } else {
-                // Restart animation after 5 seconds
-                setTimeout(() => {
-                    lineIndex = 0;
-                    terminalLines.forEach(line => {
-                        line.style.display = 'none';
-                    });
-                    setTimeout(typeTerminalLine, 1000);
-                }, 5000);
-            }
-        }
-        
-        // Start typing effect after page load
-        setTimeout(typeTerminalLine, 1000);
-        
         // Fade-in animation on scroll
         const fadeElements = document.querySelectorAll('.fade-in');
         
@@ -1508,6 +1098,30 @@
         fadeElements.forEach(element => {
             observer.observe(element);
         });
+        
+        // Prevent zoom
+        document.addEventListener('wheel', function(e) {
+            if (e.ctrlKey) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+        
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '0')) || 
+                (e.ctrlKey && e.key === 'MouseWheelZoom')) {
+                e.preventDefault();
+            }
+        });
+        
+        // Touch event for mobile zoom prevention
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
     </script>
 </body>
 </html>
