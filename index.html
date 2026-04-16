@@ -2,1126 +2,536 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Asad Bahadur | Web Developer & IT Support Specialist</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asad Bahadur | IT Architect & Network Engineer</title>
     <style>
-        /* CSS Reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-            text-size-adjust: 100%;
         }
 
-        html {
-            scroll-behavior: smooth;
-            touch-action: manipulation;
+        :root {
+            --bg: #0a0c10;
+            --surface: rgba(18, 22, 35, 0.7);
+            --card: rgba(30, 35, 50, 0.8);
+            --card-border: rgba(59, 130, 246, 0.3);
+            --text: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #3b82f6;
+            --accent-glow: #60a5fa;
+            --danger: #ef4444;
+            --success: #10b981;
+            --border: #334155;
+            --shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.5);
+            --glow: 0 0 15px rgba(59, 130, 246, 0.3);
+        }
+
+        body.light {
+            --bg: #eef2ff;
+            --surface: rgba(255, 255, 255, 0.85);
+            --card: rgba(255, 255, 255, 0.95);
+            --card-border: rgba(59, 130, 246, 0.5);
+            --text: #0f172a;
+            --text-secondary: #334155;
+            --accent: #2563eb;
+            --border: #cbd5e1;
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+            --glow: 0 0 10px rgba(37, 99, 235, 0.2);
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
-            transition: all 0.3s ease;
+            transition: background 0.3s ease, color 0.2s ease;
+            position: relative;
             overflow-x: hidden;
         }
 
-        /* Dark Theme Variables */
-        .dark-theme {
-            --primary-color: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary-color: #3b82f6;
-            --accent-color: #f59e0b;
-            --dark-bg: #0f172a;
-            --darker-bg: #020617;
-            --card-bg: #1e293b;
-            --text-color: #f1f5f9;
-            --text-muted: #94a3b8;
-            --border-color: #334155;
-            --shadow-color: rgba(0, 0, 0, 0.3);
-            --terminal-bg: #0d1117;
-            --terminal-text: #22c55e;
-            --skill-tag-bg: rgba(37, 99, 235, 0.1);
-            --skill-tag-border: rgba(37, 99, 235, 0.3);
-            --input-bg: #1e293b;
-            --input-border: #334155;
-            --input-text: #f1f5f9;
-        }
-
-        /* Light Theme Variables */
-        .light-theme {
-            --primary-color: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary-color: #3b82f6;
-            --accent-color: #f59e0b;
-            --dark-bg: #f8fafc;
-            --darker-bg: #f1f5f9;
-            --card-bg: #ffffff;
-            --text-color: #0f172a;
-            --text-muted: #475569;
-            --border-color: #e2e8f0;
-            --shadow-color: rgba(0, 0, 0, 0.1);
-            --terminal-bg: #ffffff;
-            --terminal-text: #059669;
-            --skill-tag-bg: rgba(37, 99, 235, 0.08);
-            --skill-tag-border: rgba(37, 99, 235, 0.2);
-            --input-bg: #ffffff;
-            --input-border: #e2e8f0;
-            --input-text: #0f172a;
-        }
-
-        /* Apply Theme Variables */
-        body {
-            background-color: var(--dark-bg);
-            color: var(--text-color);
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            color: var(--text-color);
-        }
-
-        p {
-            color: var(--text-muted);
-        }
-
-        /* Navigation */
-        .navbar {
-            padding: 1.2rem 0;
-            background-color: var(--darker-bg);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
+        /* Network Nodes Background Animation */
+        .network-bg {
             position: fixed;
-            width: 100%;
             top: 0;
-            z-index: 1000;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        .network-bg svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Glassmorphism */
+        .glass-card {
+            background: var(--surface);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            box-shadow: var(--shadow);
             transition: all 0.3s ease;
         }
 
-        .navbar-brand {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--primary-color) !important;
+        .glass-card:hover {
+            border-color: var(--accent);
+            box-shadow: var(--glow);
         }
 
-        .nav-link {
-            font-weight: 500;
-            color: var(--text-color) !important;
-            margin: 0 0.5rem;
-            transition: color 0.3s;
-        }
-
-        .nav-link:hover {
-            color: var(--primary-color) !important;
-        }
-
-        .theme-toggle {
-            background: var(--skill-tag-bg);
-            border: 1px solid var(--skill-tag-border);
-            color: var(--primary-color);
-            font-size: 1.1rem;
-            cursor: pointer;
-            padding: 0.5rem 0.8rem;
-            border-radius: 6px;
-            transition: all 0.3s;
-        }
-
-        .theme-toggle:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: rotate(15deg);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 180px 0 100px;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
-            opacity: 0.1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-            color: white;
-        }
-
-        .hero-subtitle {
-            font-size: 1.5rem;
+        /* Theme Toggle */
+        .theme-switch {
+            display: flex;
+            justify-content: flex-end;
             margin-bottom: 2rem;
-            color: rgba(255, 255, 255, 0.9);
+        }
+        .toggle-btn {
+            background: var(--surface);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 60px;
+            padding: 0.6rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .toggle-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
         }
 
-        .hero-intro {
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto 3rem;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.8);
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .status-badge {
+            display: inline-block;
+            background: var(--success);
+            color: #0a0c10;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+        .name {
+            font-size: 3.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), #8b5cf6, var(--accent-glow));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shine 3s linear infinite;
+        }
+        @keyframes shine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+        .typing-text {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            font-family: 'Fira Code', monospace;
+            margin-top: 0.5rem;
+            min-height: 3rem;
+        }
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            margin-left: 2px;
+            background: var(--accent);
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
-        /* Terminal Window */
-        .terminal-window {
-            background-color: var(--terminal-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px var(--shadow-color);
-            max-width: 700px;
-            margin: 3rem auto 0;
-            overflow: hidden;
-        }
-
-        .terminal-header {
+        /* Section Titles */
+        .section-title {
+            font-size: 2rem;
+            margin: 2.5rem 0 1.5rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .terminal-dots {
-            display: flex;
             gap: 0.5rem;
         }
-
-        .terminal-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .terminal-dot.red { background-color: #ff5f56; }
-        .terminal-dot.yellow { background-color: #ffbd2e; }
-        .terminal-dot.green { background-color: #27ca3f; }
-
-        .terminal-title {
-            margin-left: 1rem;
-            font-family: 'Poppins', sans-serif;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .terminal-content {
-            font-family: 'Courier New', monospace;
-            color: var(--terminal-text);
-            line-height: 1.8;
-            font-size: 0.95rem;
-        }
-
-        .terminal-line {
-            margin-bottom: 0.5rem;
-            min-height: 1.5em;
-        }
-
-        .terminal-prompt {
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-
-        /* Section Common */
-        .section {
-            padding: 80px 0;
-            position: relative;
-        }
-
-        .section-alt {
-            background-color: var(--darker-bg);
-        }
-
-        .section-title {
-            position: relative;
-            margin-bottom: 3rem;
-            padding-bottom: 1rem;
-            font-size: 2.5rem;
-        }
-
-        .section-title::after {
+        .section-title::before {
             content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), transparent);
-            border-radius: 2px;
-        }
-
-        /* Skills Section */
-        .skill-category {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px var(--shadow-color);
-        }
-
-        .skill-category:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px var(--shadow-color);
-        }
-
-        .skill-category h3 {
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            font-size: 1.5rem;
-        }
-
-        .skill-category h3 i {
-            margin-right: 0.75rem;
-            font-size: 1.2rem;
-        }
-
-        .skill-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
-
-        .skill-tag {
-            background: var(--skill-tag-bg);
-            border: 1px solid var(--skill-tag-border);
-            color: var(--primary-color);
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.3s;
+            width: 6px;
+            height: 35px;
+            background: var(--accent);
+            border-radius: 10px;
             display: inline-block;
         }
 
-        .skill-tag:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        /* Grids */
+        .grid-2, .grid-3 {
+            display: grid;
+            gap: 1.8rem;
+        }
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        }
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         }
 
-        /* Projects Section */
-        .project-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s;
-            height: 100%;
-            box-shadow: 0 5px 15px var(--shadow-color);
-            margin-bottom: 2rem;
+        .project-card, .cert-card, .skill-card {
+            padding: 1.8rem;
         }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px var(--shadow-color);
-            border-color: var(--primary-color);
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
         }
-
-        .project-header {
-            padding: 2rem 2rem 0;
-        }
-
-        .project-icon {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-        }
-
-        .project-content {
-            padding: 0 2rem 2rem;
-        }
-
-        .project-features {
-            margin: 1.5rem 0;
-        }
-
-        .feature-item {
-            display: flex;
-            margin-bottom: 0.75rem;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        .feature-item i {
-            color: var(--primary-color);
-            margin-right: 0.75rem;
-            margin-top: 0.2rem;
-            flex-shrink: 0;
-        }
-
         .tech-stack {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin-top: 1.5rem;
+            margin: 1rem 0;
         }
-
-        .tech-item {
-            background: var(--skill-tag-bg);
-            color: var(--primary-color);
-            padding: 0.25rem 0.75rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
+        .tech-tag {
+            background: rgba(59, 130, 246, 0.15);
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-family: monospace;
+            border: 1px solid var(--accent);
         }
-
-        /* Contact Section */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .contact-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 2.5rem 2rem;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s;
-            text-align: center;
-            box-shadow: 0 5px 15px var(--shadow-color);
-        }
-
-        .contact-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
-            box-shadow: 0 15px 30px var(--shadow-color);
-        }
-
-        .contact-icon {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-        }
-
-        .btn-custom {
-            background: var(--skill-tag-bg);
-            border: 1px solid var(--skill-tag-border);
-            color: var(--primary-color);
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            transition: all 0.3s;
-            text-decoration: none;
+        .btn-outline {
             display: inline-block;
-            font-weight: 500;
             margin-top: 1rem;
+            padding: 0.5rem 1.2rem;
+            border: 1.5px solid var(--accent);
+            border-radius: 40px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.2s;
         }
-
-        .btn-custom:hover {
-            background: var(--primary-color);
+        .btn-outline:hover {
+            background: var(--accent);
             color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
         }
 
-        /* Footer */
-        .footer {
-            padding: 3rem 0;
-            background-color: var(--darker-bg);
-            border-top: 1px solid var(--border-color);
-            text-align: center;
+        .skill-item {
+            background: var(--surface);
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid var(--border);
         }
 
-        .footer-logo {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-        }
-
-        .social-links {
+        /* ========== PROFESSIONAL CONNECT SECTION (MODIFIED) ========== */
+        .connect-container {
             display: flex;
-            justify-content: center;
+            flex-wrap: wrap;
             gap: 1.5rem;
-            margin-bottom: 1.5rem;
+            justify-content: space-between;
         }
-
-        .social-link {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background-color: var(--card-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-color);
-            font-size: 1.2rem;
-            transition: all 0.3s;
-            border: 1px solid var(--border-color);
-        }
-
-        .social-link:hover {
-            background-color: var(--primary-color);
-            color: white;
-            transform: translateY(-3px);
-            border-color: var(--primary-color);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1200px) {
-            .hero-title {
-                font-size: 3rem;
-            }
-            .section-title {
-                font-size: 2.2rem;
-            }
-        }
-
-        @media (max-width: 992px) {
-            .hero {
-                padding: 150px 0 80px;
-            }
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            .hero-subtitle {
-                font-size: 1.3rem;
-            }
-            .section {
-                padding: 60px 0;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero {
-                padding: 130px 0 60px;
-            }
-            .hero-title {
-                font-size: 2rem;
-            }
-            .hero-subtitle {
-                font-size: 1.1rem;
-            }
-            .hero-intro {
-                font-size: 1rem;
-            }
-            .section {
-                padding: 50px 0;
-            }
-            .section-title {
-                font-size: 1.8rem;
-            }
-            .terminal-window {
-                margin: 2rem auto 0;
-                padding: 1rem;
-            }
-            .skill-category {
-                padding: 1.5rem;
-            }
-            .project-header, .project-content {
-                padding: 1.5rem;
-            }
-            .contact-card {
-                padding: 2rem 1.5rem;
-            }
-            .navbar-nav {
-                text-align: center;
-                padding-top: 1rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .hero-title {
-                font-size: 1.8rem;
-            }
-            .section-title {
-                font-size: 1.6rem;
-            }
-            .skill-tag, .tech-item {
-                font-size: 0.85rem;
-                padding: 0.4rem 0.8rem;
-            }
-            .social-link {
-                width: 40px;
-                height: 40px;
-                font-size: 1.1rem;
-            }
-        }
-
-        /* Animation classes */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s, transform 0.6s;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Prevent zoom */
-        @media (pointer: coarse) {
-            input, textarea, select, button {
-                font-size: 16px !important;
-            }
-        }
-
-        /* Loading Animation */
-        .loader {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--border-color);
-            border-top: 2px solid var(--primary-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-right: 10px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Scroll to top button */
-        .scroll-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: var(--primary-color);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .connect-card {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 1.8rem;
+            background: var(--surface);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            transition: all 0.3s ease;
             cursor: pointer;
-            z-index: 1000;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
-            border: none;
         }
-
-        .scroll-top.show {
-            opacity: 1;
-            transform: translateY(0);
+        .connect-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: var(--glow);
         }
+        .connect-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .connect-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .connect-detail {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            word-break: break-all;
+        }
+        .connect-status {
+            margin-top: 1rem;
+            font-size: 0.7rem;
+            display: inline-block;
+            background: var(--success);
+            color: #0a0c10;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        .availability-box {
+            margin-top: 2rem;
+            text-align: center;
+            padding: 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
+        }
+        /* ============================================================ */
 
-        .scroll-top:hover {
-            background: var(--primary-dark);
-            transform: translateY(-5px);
+        hr {
+            border-color: var(--border);
+            margin: 3rem 0 1rem;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .name { font-size: 2.2rem; }
+            .typing-text { font-size: 1rem; }
+            .connect-card { min-width: 100%; }
         }
     </style>
 </head>
-<body class="dark-theme">
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <i class="fas fa-code"></i> Asad Bahadur
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#skills">Skills</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#projects">Projects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                    <li class="nav-item ms-2">
-                        <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
-                            <i class="fas fa-moon"></i>
-                        </button>
-                    </li>
-                </ul>
+<body>
+
+<!-- Animated Network Background -->
+<div class="network-bg">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800">
+        <defs>
+            <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.2" />
+                <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.05" />
+            </linearGradient>
+        </defs>
+        <circle cx="200" cy="200" r="3" fill="#3b82f6" opacity="0.6"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="3s" repeatCount="indefinite"/></circle>
+        <circle cx="500" cy="150" r="4" fill="#60a5fa" opacity="0.5"><animate attributeName="opacity" values="0.3;0.9;0.3" dur="4s" repeatCount="indefinite"/></circle>
+        <circle cx="800" cy="300" r="3" fill="#3b82f6" opacity="0.7"/>
+        <circle cx="350" cy="500" r="5" fill="#8b5cf6" opacity="0.4"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="5s" repeatCount="indefinite"/></circle>
+        <circle cx="700" cy="600" r="3" fill="#3b82f6" opacity="0.6"/>
+        <line x1="200" y1="200" x2="500" y2="150" stroke="#3b82f6" stroke-width="0.5" opacity="0.3"/>
+        <line x1="500" y1="150" x2="800" y2="300" stroke="#60a5fa" stroke-width="0.5" opacity="0.3"/>
+        <line x1="350" y1="500" x2="700" y2="600" stroke="#8b5cf6" stroke-width="0.5" opacity="0.3"/>
+        <line x1="200" y1="200" x2="350" y2="500" stroke="#3b82f6" stroke-width="0.5" opacity="0.2"/>
+    </svg>
+</div>
+
+<div class="container">
+    <!-- Theme Toggle -->
+    <div class="theme-switch">
+        <button class="toggle-btn" id="themeToggle">🌓 Dark / Light Mode</button>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="status-badge">🟢 ACTIVE / OPEN FOR NETWORK OPPORTUNITIES</div>
+        <h1 class="name">Asad Bahadur</h1>
+        <div class="typing-text" id="typing"></div>
+        <div class="badge-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin-top: 1.5rem;">
+            <span class="tech-tag">⭐ 3+ Years IT Experience</span>
+            <span class="tech-tag">🏆 Cisco Certified</span>
+            <span class="tech-tag">💼 KABABJEES GROUPS</span>
+            <span class="tech-tag">🌐 System Admin + Dev</span>
+        </div>
+    </div>
+
+    <!-- About Section - Glass Card -->
+    <div class="glass-card" style="padding: 2rem; margin-bottom: 1.5rem;">
+        <p style="font-size: 1.1rem; font-weight: 500;">🔹 <strong>IT Generalist & Problem Solver</strong> — 3+ years handling complete IT infrastructure, network administration, helpdesk, and building internal automation tools. I don't just manage IT; I improve it with code & monitoring.</p>
+    </div>
+
+    <!-- Core Expertise -->
+    <h2 class="section-title">⚙️ Core Competencies</h2>
+    <div class="grid-3">
+        <div class="glass-card skill-card">
+            <h3>🌍 Network & Security</h3>
+            <div class="tech-stack">
+                <span class="tech-tag">Cisco</span><span class="tech-tag">TCP/IP</span><span class="tech-tag">DNS/DHCP</span><span class="tech-tag">Firewalls</span><span class="tech-tag">VPN</span><span class="tech-tag">Monitoring</span>
             </div>
         </div>
-    </nav>
-
-    <!-- Scroll to Top Button -->
-    <button class="scroll-top" id="scrollTop">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title fade-in">Asad Bahadur</h1>
-                <h2 class="hero-subtitle fade-in">Web Developer & IT Support Specialist</h2>
-                <p class="hero-intro fade-in">I specialize in website development, design, and IT support services. With expertise in coding, system administration, and network support, I build functional, efficient, and user-friendly digital solutions.</p>
-                
-                <div class="terminal-window fade-in">
-                    <div class="terminal-header">
-                        <div class="terminal-dots">
-                            <div class="terminal-dot red"></div>
-                            <div class="terminal-dot yellow"></div>
-                            <div class="terminal-dot green"></div>
-                        </div>
-                        <div class="terminal-title">asad@portfolio:~</div>
-                    </div>
-                    <div class="terminal-content" id="terminalContent">
-                        <!-- Terminal content will be populated by JavaScript -->
-                    </div>
-                </div>
+        <div class="glass-card skill-card">
+            <h3>🖥️ System Administration</h3>
+            <div class="tech-stack">
+                <span class="tech-tag">Windows/Linux</span><span class="tech-tag">Active Directory</span><span class="tech-tag">Backup</span><span class="tech-tag">Help Desk</span><span class="tech-tag">IT Asset</span>
             </div>
         </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="section">
-        <div class="container">
-            <h2 class="section-title fade-in">About Me</h2>
-            <div class="row align-items-center">
-                <div class="col-lg-6 mb-4 mb-lg-0">
-                    <div class="text-center fade-in">
-                        <div style="width: 300px; height: 300px; margin: 0 auto; background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 5rem; font-weight: 700; box-shadow: 0 20px 40px rgba(37, 99, 235, 0.3);">
-                            AB
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="fade-in">
-                        <h3 class="mb-4">Web Developer & IT Specialist</h3>
-                        <p class="mb-3">I'm a passionate web developer and IT support professional with hands-on experience in creating responsive websites, providing technical support, and managing IT infrastructure.</p>
-                        <p class="mb-3">I enjoy solving technical problems, whether it's debugging code, troubleshooting network issues, or optimizing system performance.</p>
-                        <p class="mb-4">Currently, I'm focused on expanding my expertise in modern web technologies while providing comprehensive IT support services.</p>
-                        
-                        <div>
-                            <h5 class="mb-3">Current Focus:</h5>
-                            <div class="skill-list">
-                                <span class="skill-tag">Frontend Development</span>
-                                <span class="skill-tag">Backend Programming</span>
-                                <span class="skill-tag">IT Troubleshooting</span>
-                                <span class="skill-tag">Network Support</span>
-                                <span class="skill-tag">System Administration</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="glass-card skill-card">
+            <h3>💻 Development for IT</h3>
+            <div class="tech-stack">
+                <span class="tech-tag">Python</span><span class="tech-tag">PHP</span><span class="tech-tag">JavaScript</span><span class="tech-tag">MySQL</span><span class="tech-tag">APIs</span><span class="tech-tag">Dashboards</span>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Skills Section -->
-    <section id="skills" class="section section-alt">
-        <div class="container">
-            <h2 class="section-title fade-in">Technical Skills</h2>
-            
-            <div class="row">
-                <div class="col-lg-4 mb-4 fade-in">
-                    <div class="skill-category">
-                        <h3><i class="fas fa-code"></i> Web Development</h3>
-                        <div class="skill-list">
-                            <span class="skill-tag">HTML5 & CSS3</span>
-                            <span class="skill-tag">Bootstrap 5</span>
-                            <span class="skill-tag">JavaScript</span>
-                            <span class="skill-tag">PHP</span>
-                            <span class="skill-tag">MySQL</span>
-                            <span class="skill-tag">Responsive Design</span>
-                            <span class="skill-tag">Git & GitHub</span>
-                            <span class="skill-tag">VS Code</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 mb-4 fade-in">
-                    <div class="skill-category">
-                        <h3><i class="fas fa-tools"></i> IT Support</h3>
-                        <div class="skill-list">
-                            <span class="skill-tag">Hardware Troubleshooting</span>
-                            <span class="skill-tag">Software Installation</span>
-                            <span class="skill-tag">System Configuration</span>
-                            <span class="skill-tag">User Support</span>
-                            <span class="skill-tag">Remote Assistance</span>
-                            <span class="skill-tag">Problem Resolution</span>
-                            <span class="skill-tag">Documentation</span>
-                            <span class="skill-tag">TeamViewer</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 mb-4 fade-in">
-                    <div class="skill-category">
-                        <h3><i class="fas fa-server"></i> System Administration</h3>
-                        <div class="skill-list">
-                            <span class="skill-tag">Windows Server</span>
-                            <span class="skill-tag">Linux Administration</span>
-                            <span class="skill-tag">Active Directory</span>
-                            <span class="skill-tag">PowerShell</span>
-                            <span class="skill-tag">System Monitoring</span>
-                            <span class="skill-tag">Backup Solutions</span>
-                            <span class="skill-tag">Security Updates</span>
-                            <span class="skill-tag">Virtualization</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Projects -->
+    <h2 class="section-title">📁 Enterprise Projects (Self-Built)</h2>
+    <div class="grid-3">
+        <div class="glass-card project-card">
+            <div class="project-title">📋 RMS – Request Mgmt System</div>
+            <div class="tech-stack"><span class="tech-tag">PHP</span><span class="tech-tag">MySQL</span><span class="tech-tag">Bootstrap</span></div>
+            <p>Internal portal for IT requests — track approvals, automate assignment, reduce email chaos.</p>
+            <a href="#" class="btn-outline">🔗 Source on GitHub →</a>
         </div>
-    </section>
+        <div class="glass-card project-card">
+            <div class="project-title">🎫 IT Ticketing System</div>
+            <div class="tech-stack"><span class="tech-tag">Python/Django</span><span class="tech-tag">SQLite</span></div>
+            <p>Full helpdesk solution: priorities, technician assignment, status, email notifications.</p>
+            <a href="#" class="btn-outline">🔗 Source on GitHub →</a>
+        </div>
+        <div class="glass-card project-card">
+            <div class="project-title">📡 Server & API Monitor</div>
+            <div class="tech-stack"><span class="tech-tag">Python</span><span class="tech-tag">Shell</span><span class="tech-tag">Grafana</span></div>
+            <p>Real-time health checks for APIs, CPU, RAM, disk — proactive alerting dashboard.</p>
+            <a href="#" class="btn-outline">🔗 Source on GitHub →</a>
+        </div>
+    </div>
 
-    <!-- Projects Section -->
-    <section id="projects" class="section">
-        <div class="container">
-            <h2 class="section-title fade-in">Recent Projects</h2>
-            
-            <div class="row">
-                <div class="col-lg-6 mb-4 fade-in">
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-boxes"></i>
-                            </div>
-                            <h3>Inventory Management System</h3>
-                        </div>
-                        <div class="project-content">
-                            <p>A comprehensive inventory management solution with role-based access control for Admin, Inventory Officer, and Vendor roles.</p>
-                            
-                            <div class="project-features">
-                                <div class="feature-item">
-                                    <i class="fas fa-check-circle"></i>
-                                    <div>Role-based authentication system</div>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-check-circle"></i>
-                                    <div>Real-time inventory tracking</div>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-check-circle"></i>
-                                    <div>Automated report generation</div>
-                                </div>
-                            </div>
-                            
-                            <div class="tech-stack">
-                                <span class="tech-item">PHP</span>
-                                <span class="tech-item">MySQL</span>
-                                <span class="tech-item">JavaScript</span>
-                                <span class="tech-item">Bootstrap 5</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6 mb-4 fade-in">
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon">
-                                <i class="fas fa-comments"></i>
-                            </div>
-                            <h3>Customer Feedback System</h3>
-                        </div>
-                        <div class="project-content">
-                            <p>A responsive customer feedback management system with admin dashboard, analytics, and comprehensive reporting features.</p>
-                            
-                            <div class="project-features">
-                                <div class="feature-item">
-                                    <i class="fas fa-check-circle"></i>
-                                    <div>Responsive feedback forms</div>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-check-circle"></i>
-                                    <div>Admin dashboard with analytics</div>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-check-circle"></i>
-                                    <div>Data export to Excel/PDF</div>
-                                </div>
-                            </div>
-                            
-                            <div class="tech-stack">
-                                <span class="tech-item">PHP</span>
-                                <span class="tech-item">MySQL</span>
-                                <span class="tech-item">Chart.js</span>
-                                <span class="tech-item">Bootstrap 5</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Certifications + Experience -->
+    <div class="grid-2">
+        <div class="glass-card" style="padding: 1.8rem;">
+            <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">📜 Certifications</h3>
+            <ul style="margin-left: 1.2rem;">
+                <li>✅ Cisco – IT Customer Support Basics</li>
+                <li>✅ Cisco – Introduction to Cybersecurity</li>
+                <li>✅ Cisco – Network Basics</li>
+            </ul>
         </div>
-    </section>
+        <div class="glass-card" style="padding: 1.8rem;">
+            <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">💼 Current Role</h3>
+            <p><strong>System Administrator & IT Support</strong><br>KABABJEES GROUPS (2.5+ years)</p>
+            <ul style="margin-left: 1.2rem; margin-top: 0.5rem;">
+                <li>Full IT operations + infrastructure</li>
+                <li>Helpdesk & ticket resolution</li>
+                <li>Built internal tools to automate workflows</li>
+            </ul>
+        </div>
+    </div>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section section-alt">
-        <div class="container">
-            <h2 class="section-title fade-in">Get In Touch</h2>
-            <p class="text-center mb-5 fade-in">Interested in web development projects or IT support services? Let's connect.</p>
-            
-            <div class="contact-grid">
-                <div class="contact-card fade-in">
-                    <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <h4>Email</h4>
-                    <p>asadbahadur07@gmail.com</p>
-                    <a href="mailto:asadbahadur07@gmail.com" class="btn-custom">Send Email</a>
-                </div>
-                
-                <div class="contact-card fade-in">
-                    <div class="contact-icon">
-                        <i class="fab fa-linkedin"></i>
-                    </div>
-                    <h4>LinkedIn</h4>
-                    <p>asad-bahadur-b206752b2</p>
-                    <a href="https://www.linkedin.com/in/asad-bahadur-b206752b2/" target="_blank" class="btn-custom">Connect on LinkedIn</a>
-                </div>
-                
-                <div class="contact-card fade-in">
-                    <div class="contact-icon">
-                        <i class="fab fa-github"></i>
-                    </div>
-                    <h4>GitHub</h4>
-                    <p>github.com/asadbahadur</p>
-                    <a href="https://github.com/asadbahadur" target="_blank" class="btn-custom">View Projects</a>
-                </div>
+    <!-- ========== PROFESSIONAL CONNECT / NETWORK SECTION (MODIFIED) ========== -->
+    <h2 class="section-title">🌐 Connect / Network</h2>
+    <div class="connect-container">
+        <!-- Email Card -->
+        <a href="mailto:asadbahadur07@gmail.com" style="text-decoration: none; color: inherit;">
+            <div class="connect-card">
+                <div class="connect-icon">📧</div>
+                <div class="connect-title">Email</div>
+                <div class="connect-detail">asadbahadur07@gmail.com</div>
+                <div class="connect-status">✉️ Reply within 4hrs</div>
             </div>
-        </div>
-    </section>
+        </a>
+        <!-- LinkedIn Card -->
+        <a href="https://linkedin.com/in/asad-bahadur-b206752b2" target="_blank" style="text-decoration: none; color: inherit;">
+            <div class="connect-card">
+                <div class="connect-icon">🔗</div>
+                <div class="connect-title">LinkedIn</div>
+                <div class="connect-detail">asad-bahadur</div>
+                <div class="connect-status">💼 500+ connections</div>
+            </div>
+        </a>
+        <!-- GitHub Card -->
+        <a href="https://github.com/asadbahadur" target="_blank" style="text-decoration: none; color: inherit;">
+            <div class="connect-card">
+                <div class="connect-icon">🐙</div>
+                <div class="connect-title">GitHub</div>
+                <div class="connect-detail">github.com/asadbahadur</div>
+                <div class="connect-status">📂 3+ public repos</div>
+            </div>
+        </a>
+    </div>
+    <!-- Availability Box -->
+    <div class="availability-box">
+        <span style="font-weight: 700;">🟢 Available for:</span> Freelance IT Consulting | Network Audits | Automation Projects | Full-time Roles
+    </div>
+    <!-- Portfolio Live Status -->
+    <div style="text-align: center; margin-top: 1rem;">
+        <span class="tech-tag">🌍 Portfolio Live: asadbahadur.github.io (soon)</span>
+    </div>
+    <!-- =============================================================== -->
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-logo">
-                <i class="fas fa-code"></i> Asad Bahadur
-            </div>
-            
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/asad-bahadur-b206752b2/" class="social-link" target="_blank">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://github.com/asadbahadur" class="social-link" target="_blank">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="mailto:asadbahadur07@gmail.com" class="social-link">
-                    <i class="fas fa-envelope"></i>
-                </a>
-            </div>
-            
-            <p class="mb-3">Web Developer | IT Support Specialist | System Administrator</p>
-            <p>&copy; <span id="currentYear"></span> Asad Bahadur. All rights reserved.</p>
-        </div>
+    <hr>
+    <footer>
+        “Automating IT infrastructure with code & network intelligence.” — Asad Bahadur
     </footer>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Theme Toggle with Proper Theme Switching
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = themeToggle.querySelector('i');
-        
-        // Check for saved theme
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        if (savedTheme === 'light') {
-            document.body.classList.remove('dark-theme');
-            document.body.classList.add('light-theme');
-            themeIcon.classList.remove('fa-moon');
-            themeIcon.classList.add('fa-sun');
-        }
-        
-        themeToggle.addEventListener('click', () => {
-            if (document.body.classList.contains('dark-theme')) {
-                // Switch to light theme
-                document.body.classList.remove('dark-theme');
-                document.body.classList.add('light-theme');
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-                localStorage.setItem('theme', 'light');
-            } else {
-                // Switch to dark theme
-                document.body.classList.remove('light-theme');
-                document.body.classList.add('dark-theme');
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-                localStorage.setItem('theme', 'dark');
+<script>
+    // Typing Animation
+    const roles = [
+        "🖧 IT Generalist & Network Engineer",
+        "⚙️ System Administrator | Web Developer",
+        "📡 Monitoring & Automation Enthusiast",
+        "🔐 Cisco Certified | IT Support Pro"
+    ];
+    let roleIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typingElement = document.getElementById('typing');
+
+    function typeEffect() {
+        const currentRole = roles[roleIndex];
+        if (isDeleting) {
+            typingElement.innerHTML = currentRole.substring(0, charIndex - 1) + '<span class="cursor">|</span>';
+            charIndex--;
+            if (charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
             }
-        });
-        
-        // Set current year
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-        
-        // Terminal typing effect
-        const terminalContent = document.getElementById('terminalContent');
-        const terminalLines = [
-            {text: "$ whoami", delay: 500},
-            {text: "Web Developer | IT Support Specialist | System Administrator", delay: 1000},
-            {text: "$ cat services.txt", delay: 500},
-            {text: "> Website Development & Design", delay: 300},
-            {text: "> IT Help Desk Support", delay: 300},
-            {text: "> Network Administration", delay: 300},
-            {text: "> System Maintenance", delay: 300},
-            {text: "$ ", delay: 1000}
-        ];
-        
-        let currentLine = 0;
-        let currentChar = 0;
-        
-        function typeTerminal() {
-            if (currentLine < terminalLines.length) {
-                const line = terminalLines[currentLine];
-                
-                if (currentChar === 0) {
-                    const lineElement = document.createElement('div');
-                    lineElement.className = 'terminal-line';
-                    if (line.text.startsWith('$')) {
-                        const promptSpan = document.createElement('span');
-                        promptSpan.className = 'terminal-prompt';
-                        promptSpan.textContent = '$ ';
-                        lineElement.appendChild(promptSpan);
-                        
-                        const textSpan = document.createElement('span');
-                        textSpan.textContent = line.text.substring(2);
-                        lineElement.appendChild(textSpan);
-                    } else if (line.text.startsWith('>')) {
-                        lineElement.innerHTML = `<span style="color: var(--accent-color);">${line.text}</span>`;
-                    } else {
-                        lineElement.textContent = line.text;
-                    }
-                    terminalContent.appendChild(lineElement);
-                }
-                
-                currentChar++;
-                
-                if (currentChar >= line.text.length) {
-                    currentLine++;
-                    currentChar = 0;
-                    setTimeout(typeTerminal, line.delay);
-                } else {
-                    setTimeout(typeTerminal, 30);
-                }
-            } else {
-                // Add blinking cursor
-                const cursorElement = document.createElement('span');
-                cursorElement.className = 'terminal-cursor';
-                cursorElement.style.display = 'inline-block';
-                cursorElement.style.width = '8px';
-                cursorElement.style.height = '16px';
-                cursorElement.style.backgroundColor = 'var(--terminal-text)';
-                cursorElement.style.animation = 'blink 1s infinite';
-                cursorElement.style.verticalAlign = 'middle';
-                cursorElement.style.marginLeft = '2px';
-                terminalContent.lastElementChild.appendChild(cursorElement);
-                
-                // Restart animation after 10 seconds
-                setTimeout(() => {
-                    terminalContent.innerHTML = '';
-                    currentLine = 0;
-                    currentChar = 0;
-                    setTimeout(typeTerminal, 1000);
-                }, 10000);
+        } else {
+            typingElement.innerHTML = currentRole.substring(0, charIndex + 1) + '<span class="cursor">|</span>';
+            charIndex++;
+            if (charIndex === currentRole.length) {
+                isDeleting = true;
+                setTimeout(() => {}, 1500);
             }
         }
-        
-        // Start terminal typing after page load
-        window.addEventListener('load', () => {
-            setTimeout(typeTerminal, 1000);
-        });
-        
-        // Scroll to top button
-        const scrollTopBtn = document.getElementById('scrollTop');
-        
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                scrollTopBtn.classList.add('show');
-            } else {
-                scrollTopBtn.classList.remove('show');
-            }
-        });
-        
-        scrollTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-        
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        // Fade-in animation on scroll
-        const fadeElements = document.querySelectorAll('.fade-in');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        fadeElements.forEach(element => {
-            observer.observe(element);
-        });
-        
-        // Prevent zoom
-        document.addEventListener('wheel', function(e) {
-            if (e.ctrlKey) {
-                e.preventDefault();
-            }
-        }, { passive: false });
-        
-        document.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '0')) || 
-                (e.ctrlKey && e.key === 'MouseWheelZoom')) {
-                e.preventDefault();
-            }
-        });
-        
-        // Touch event for mobile zoom prevention
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', function(event) {
-            const now = (new Date()).getTime();
-            if (now - lastTouchEnd <= 300) {
-                event.preventDefault();
-            }
-            lastTouchEnd = now;
-        }, false);
-    </script>
+        setTimeout(typeEffect, isDeleting ? 60 : 100);
+    }
+    typeEffect();
+
+    // Theme toggle
+    const toggleBtn = document.getElementById('themeToggle');
+    const body = document.body;
+    function setTheme(theme) {
+        if (theme === 'light') {
+            body.classList.add('light');
+            localStorage.setItem('portfolio-theme', 'light');
+        } else {
+            body.classList.remove('light');
+            localStorage.setItem('portfolio-theme', 'dark');
+        }
+    }
+    toggleBtn.addEventListener('click', () => {
+        if (body.classList.contains('light')) setTheme('dark');
+        else setTheme('light');
+    });
+    const savedTheme = localStorage.getItem('portfolio-theme');
+    if (savedTheme === 'light') setTheme('light');
+    else setTheme('dark');
+</script>
 </body>
 </html>
