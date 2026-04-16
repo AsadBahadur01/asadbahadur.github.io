@@ -50,7 +50,6 @@
             overflow-x: hidden;
         }
 
-        /* Network Nodes Background Animation */
         .network-bg {
             position: fixed;
             top: 0;
@@ -75,7 +74,6 @@
             z-index: 2;
         }
 
-        /* Glassmorphism */
         .glass-card {
             background: var(--surface);
             backdrop-filter: blur(12px);
@@ -90,7 +88,6 @@
             box-shadow: var(--glow);
         }
 
-        /* Theme Toggle */
         .theme-switch {
             display: flex;
             justify-content: flex-end;
@@ -114,7 +111,6 @@
             border-color: var(--accent);
         }
 
-        /* Header */
         .header {
             text-align: center;
             margin-bottom: 3rem;
@@ -163,7 +159,6 @@
             50% { opacity: 0; }
         }
 
-        /* Section Titles */
         .section-title {
             font-size: 2rem;
             margin: 2.5rem 0 1.5rem;
@@ -181,19 +176,25 @@
             display: inline-block;
         }
 
-        /* Grids */
-        .grid-2, .grid-3 {
+        /* ========== FIXED: ALAG ALAG SECTIONS ========== */
+        /* Projects Grid - 3 columns */
+        .projects-grid {
             display: grid;
-            gap: 1.8rem;
-        }
-        .grid-3 {
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 2rem;
         }
-        .grid-2 {
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        
+        /* 2 Columns Grid for Certs + Experience (ALAG) */
+        .two-column-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.8rem;
+            margin: 1.5rem 0 2rem 0;
         }
+        /* ============================================ */
 
-        .project-card, .cert-card, .skill-card {
+        .project-card, .cert-card, .exp-card {
             padding: 1.8rem;
         }
         .project-title {
@@ -233,21 +234,13 @@
             color: white;
         }
 
-        .skill-item {
-            background: var(--surface);
-            padding: 0.5rem 1rem;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            border: 1px solid var(--border);
-        }
-
-        /* ========== PROFESSIONAL CONNECT SECTION (MODIFIED) ========== */
+        /* Connect Section */
         .connect-container {
             display: flex;
             flex-wrap: wrap;
             gap: 1.5rem;
             justify-content: space-between;
+            margin-top: 1rem;
         }
         .connect-card {
             flex: 1;
@@ -260,6 +253,8 @@
             border-radius: 24px;
             transition: all 0.3s ease;
             cursor: pointer;
+            text-decoration: none;
+            color: inherit;
         }
         .connect-card:hover {
             transform: translateY(-8px);
@@ -298,7 +293,6 @@
             border-radius: 20px;
             border: 1px solid var(--card-border);
         }
-        /* ============================================================ */
 
         hr {
             border-color: var(--border);
@@ -320,7 +314,6 @@
 </head>
 <body>
 
-<!-- Animated Network Background -->
 <div class="network-bg">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800">
         <defs>
@@ -342,17 +335,15 @@
 </div>
 
 <div class="container">
-    <!-- Theme Toggle -->
     <div class="theme-switch">
         <button class="toggle-btn" id="themeToggle">🌓 Dark / Light Mode</button>
     </div>
 
-    <!-- Header -->
     <div class="header">
         <div class="status-badge">🟢 ACTIVE / OPEN FOR NETWORK OPPORTUNITIES</div>
         <h1 class="name">Asad Bahadur</h1>
         <div class="typing-text" id="typing"></div>
-        <div class="badge-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin-top: 1.5rem;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin-top: 1.5rem;">
             <span class="tech-tag">⭐ 3+ Years IT Experience</span>
             <span class="tech-tag">🏆 Cisco Certified</span>
             <span class="tech-tag">💼 KABABJEES GROUPS</span>
@@ -360,27 +351,25 @@
         </div>
     </div>
 
-    <!-- About Section - Glass Card -->
     <div class="glass-card" style="padding: 2rem; margin-bottom: 1.5rem;">
         <p style="font-size: 1.1rem; font-weight: 500;">🔹 <strong>IT Generalist & Problem Solver</strong> — 3+ years handling complete IT infrastructure, network administration, helpdesk, and building internal automation tools. I don't just manage IT; I improve it with code & monitoring.</p>
     </div>
 
-    <!-- Core Expertise -->
     <h2 class="section-title">⚙️ Core Competencies</h2>
-    <div class="grid-3">
-        <div class="glass-card skill-card">
+    <div class="projects-grid">
+        <div class="glass-card skill-card" style="padding: 1.8rem;">
             <h3>🌍 Network & Security</h3>
             <div class="tech-stack">
                 <span class="tech-tag">Cisco</span><span class="tech-tag">TCP/IP</span><span class="tech-tag">DNS/DHCP</span><span class="tech-tag">Firewalls</span><span class="tech-tag">VPN</span><span class="tech-tag">Monitoring</span>
             </div>
         </div>
-        <div class="glass-card skill-card">
+        <div class="glass-card skill-card" style="padding: 1.8rem;">
             <h3>🖥️ System Administration</h3>
             <div class="tech-stack">
                 <span class="tech-tag">Windows/Linux</span><span class="tech-tag">Active Directory</span><span class="tech-tag">Backup</span><span class="tech-tag">Help Desk</span><span class="tech-tag">IT Asset</span>
             </div>
         </div>
-        <div class="glass-card skill-card">
+        <div class="glass-card skill-card" style="padding: 1.8rem;">
             <h3>💻 Development for IT</h3>
             <div class="tech-stack">
                 <span class="tech-tag">Python</span><span class="tech-tag">PHP</span><span class="tech-tag">JavaScript</span><span class="tech-tag">MySQL</span><span class="tech-tag">APIs</span><span class="tech-tag">Dashboards</span>
@@ -388,9 +377,9 @@
         </div>
     </div>
 
-    <!-- Projects -->
+    <!-- ========== PROJECTS SECTION (ALAG) ========== -->
     <h2 class="section-title">📁 Enterprise Projects (Self-Built)</h2>
-    <div class="grid-3">
+    <div class="projects-grid">
         <div class="glass-card project-card">
             <div class="project-title">📋 RMS – Request Mgmt System</div>
             <div class="tech-stack"><span class="tech-tag">PHP</span><span class="tech-tag">MySQL</span><span class="tech-tag">Bootstrap</span></div>
@@ -407,24 +396,27 @@
             <div class="project-title">📡 Server & API Monitor</div>
             <div class="tech-stack"><span class="tech-tag">Python</span><span class="tech-tag">Shell</span><span class="tech-tag">Grafana</span></div>
             <p>Real-time health checks for APIs, CPU, RAM, disk — proactive alerting dashboard.</p>
-            <a href="#" class="btn-outline">🔗 Source on GitHub →</a>
+            <a href="https://github.com/ServerAndAPIMonitor" class="btn-outline">🔗 Source on GitHub →</a>
         </div>
     </div>
 
-    <!-- Certifications + Experience -->
-    <div class="grid-2">
+    <!-- ========== CERTIFICATIONS + CURRENT ROLE (ALAG ALAG, 2 COLUMNS) ========== -->
+    <div class="two-column-grid">
+        <!-- Certifications Card -->
         <div class="glass-card" style="padding: 1.8rem;">
             <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">📜 Certifications</h3>
-            <ul style="margin-left: 1.2rem;">
+            <ul style="margin-left: 1.2rem; line-height: 1.8;">
                 <li>✅ Cisco – IT Customer Support Basics</li>
                 <li>✅ Cisco – Introduction to Cybersecurity</li>
                 <li>✅ Cisco – Network Basics</li>
             </ul>
         </div>
+        
+        <!-- Current Role Card -->
         <div class="glass-card" style="padding: 1.8rem;">
             <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">💼 Current Role</h3>
             <p><strong>System Administrator & IT Support</strong><br>KABABJEES GROUPS (2.5+ years)</p>
-            <ul style="margin-left: 1.2rem; margin-top: 0.5rem;">
+            <ul style="margin-left: 1.2rem; margin-top: 0.8rem; line-height: 1.8;">
                 <li>Full IT operations + infrastructure</li>
                 <li>Helpdesk & ticket resolution</li>
                 <li>Built internal tools to automate workflows</li>
@@ -432,46 +424,34 @@
         </div>
     </div>
 
-    <!-- ========== PROFESSIONAL CONNECT / NETWORK SECTION (MODIFIED) ========== -->
+    <!-- ========== CONNECT SECTION ========== -->
     <h2 class="section-title">🌐 Connect / Network</h2>
     <div class="connect-container">
-        <!-- Email Card -->
-        <a href="mailto:asadbahadur07@gmail.com" style="text-decoration: none; color: inherit;">
-            <div class="connect-card">
-                <div class="connect-icon">📧</div>
-                <div class="connect-title">Email</div>
-                <div class="connect-detail">asadbahadur07@gmail.com</div>
-                <div class="connect-status">✉️ Reply within 4hrs</div>
-            </div>
+        <a href="mailto:asadbahadur07@gmail.com" class="connect-card">
+            <div class="connect-icon">📧</div>
+            <div class="connect-title">Email</div>
+            <div class="connect-detail">asadbahadur07@gmail.com</div>
+            <div class="connect-status">✉️ Reply within 4hrs</div>
         </a>
-        <!-- LinkedIn Card -->
-        <a href="https://linkedin.com/in/asad-bahadur-b206752b2" target="_blank" style="text-decoration: none; color: inherit;">
-            <div class="connect-card">
-                <div class="connect-icon">🔗</div>
-                <div class="connect-title">LinkedIn</div>
-                <div class="connect-detail">asad-bahadur</div>
-                <div class="connect-status">💼 500+ connections</div>
-            </div>
+        <a href="https://linkedin.com/in/asad-bahadur-b206752b2" target="_blank" class="connect-card">
+            <div class="connect-icon">🔗</div>
+            <div class="connect-title">LinkedIn</div>
+            <div class="connect-detail">asad-bahadur</div>
+            <div class="connect-status">💼 500+ connections</div>
         </a>
-        <!-- GitHub Card -->
-        <a href="https://github.com/asadbahadur" target="_blank" style="text-decoration: none; color: inherit;">
-            <div class="connect-card">
-                <div class="connect-icon">🐙</div>
-                <div class="connect-title">GitHub</div>
-                <div class="connect-detail">github.com/asadbahadur</div>
-                <div class="connect-status">📂 3+ public repos</div>
-            </div>
+        <a href="https://github.com/asadbahadur" target="_blank" class="connect-card">
+            <div class="connect-icon">🐙</div>
+            <div class="connect-title">GitHub</div>
+            <div class="connect-detail">github.com/asadbahadur</div>
+            <div class="connect-status">📂 3+ public repos</div>
         </a>
     </div>
-    <!-- Availability Box -->
     <div class="availability-box">
         <span style="font-weight: 700;">🟢 Available for:</span> Freelance IT Consulting | Network Audits | Automation Projects | Full-time Roles
     </div>
-    <!-- Portfolio Live Status -->
     <div style="text-align: center; margin-top: 1rem;">
         <span class="tech-tag">🌍 Portfolio Live: asadbahadur.github.io (soon)</span>
     </div>
-    <!-- =============================================================== -->
 
     <hr>
     <footer>
@@ -480,16 +460,13 @@
 </div>
 
 <script>
-    // Typing Animation
     const roles = [
         "🖧 IT Generalist & Network Engineer",
         "⚙️ System Administrator | Web Developer",
         "📡 Monitoring & Automation Enthusiast",
         "🔐 Cisco Certified | IT Support Pro"
     ];
-    let roleIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
+    let roleIndex = 0, charIndex = 0, isDeleting = false;
     const typingElement = document.getElementById('typing');
 
     function typeEffect() {
@@ -513,7 +490,6 @@
     }
     typeEffect();
 
-    // Theme toggle
     const toggleBtn = document.getElementById('themeToggle');
     const body = document.body;
     function setTheme(theme) {
