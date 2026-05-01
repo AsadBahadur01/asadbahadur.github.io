@@ -2,14 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Asad Bahadur | IT Architect & Network Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --bg: #0a0c10;
@@ -19,12 +17,14 @@
             --text: #f1f5f9;
             --text-secondary: #94a3b8;
             --accent: #3b82f6;
-            --accent-glow: #60a5fa;
+            --accent-hover: #2563eb;
             --danger: #ef4444;
             --success: #10b981;
+            --warning: #f59e0b;
             --border: #334155;
             --shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.5);
             --glow: 0 0 15px rgba(59, 130, 246, 0.3);
+            --input-bg: rgba(255, 255, 255, 0.05);
         }
 
         body.light {
@@ -38,44 +38,33 @@
             --border: #cbd5e1;
             --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
             --glow: 0 0 10px rgba(37, 99, 235, 0.2);
+            --input-bg: rgba(0, 0, 0, 0.03);
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace;
+            font-family: 'Inter', sans-serif;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.6;
+            line-height: 1.5;
             transition: background 0.3s ease, color 0.2s ease;
-            position: relative;
             overflow-x: hidden;
         }
 
-        /* Network Nodes Background Animation */
-        .network-bg {
+        body::before {
+            content: '';
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0;
+            background-image: repeating-linear-gradient(45deg, rgba(59, 130, 246, 0.03) 0px, rgba(59, 130, 246, 0.03) 2px, transparent 2px, transparent 10px);
             pointer-events: none;
-            opacity: 0.4;
+            z-index: 0;
         }
 
-        .network-bg svg {
-            width: 100%;
-            height: 100%;
-        }
+        .network-nodes { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.4; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 1.5rem; position: relative; z-index: 2; }
 
-        .container {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Glassmorphism */
         .glass-card {
             background: var(--surface);
             backdrop-filter: blur(12px);
@@ -84,18 +73,9 @@
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
         }
+        .glass-card:hover { border-color: var(--accent); box-shadow: var(--glow); }
 
-        .glass-card:hover {
-            border-color: var(--accent);
-            box-shadow: var(--glow);
-        }
-
-        /* Theme Toggle */
-        .theme-switch {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 2rem;
-        }
+        .theme-switch { display: flex; justify-content: flex-end; margin-bottom: 1.5rem; }
         .toggle-btn {
             background: var(--surface);
             backdrop-filter: blur(12px);
@@ -106,19 +86,13 @@
             font-weight: 600;
             color: var(--text);
             font-size: 0.9rem;
-            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .toggle-btn:hover {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
+        .toggle-btn:hover { background: var(--accent); color: white; }
 
-        /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
+        .header { text-align: center; margin-bottom: 2rem; }
         .status-badge {
             display: inline-block;
             background: var(--success);
@@ -131,23 +105,21 @@
             margin-bottom: 1rem;
         }
         .name {
-            font-size: 3.8rem;
+            font-size: clamp(2rem, 8vw, 3.8rem);
             font-weight: 800;
-            background: linear-gradient(135deg, var(--accent), #8b5cf6, var(--accent-glow));
+            background: linear-gradient(135deg, var(--accent), #8b5cf6, var(--accent));
             background-size: 200% auto;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             animation: shine 3s linear infinite;
         }
-        @keyframes shine {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
-        }
+        @keyframes shine { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
+
         .typing-text {
-            font-size: 1.3rem;
+            font-size: clamp(0.9rem, 4vw, 1.3rem);
             color: var(--text-secondary);
-            font-family: 'Fira Code', monospace;
+            font-family: monospace;
             margin-top: 0.5rem;
             min-height: 3rem;
         }
@@ -158,56 +130,38 @@
             background: var(--accent);
             animation: blink 1s infinite;
         }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        /* Section Titles */
+        .badge-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin-top: 1.5rem; }
+
         .section-title {
-            font-size: 2rem;
-            margin: 2.5rem 0 1.5rem;
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            margin: 2rem 0 1.2rem;
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
-        .section-title::before {
-            content: '';
-            width: 6px;
-            height: 35px;
-            background: var(--accent);
-            border-radius: 10px;
-            display: inline-block;
-        }
+        .section-title::before { content: ''; width: 6px; height: 35px; background: var(--accent); border-radius: 10px; display: inline-block; }
 
-        /* Grids */
-        .grid-2, .grid-3 {
-            display: grid;
-            gap: 1.8rem;
-        }
-        .grid-3 {
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        }
-        .grid-2 {
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        }
+        .grid-2, .grid-3, .grid-4 { display: grid; gap: 1.5rem; }
+        .grid-4 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
 
-        .project-card, .cert-card, .skill-card {
-            padding: 1.8rem;
-        }
+        .project-card, .cert-card, .skill-card, .experience-card { padding: 1.5rem; }
         .project-title {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--accent);
             margin-bottom: 0.5rem;
-        }
-        .tech-stack {
             display: flex;
+            align-items: center;
+            gap: 10px;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1rem 0;
         }
+        .live-badge { background: var(--success); color: white; font-size: 0.6rem; padding: 0.2rem 0.6rem; border-radius: 20px; }
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
         .tech-tag {
             background: rgba(59, 130, 246, 0.15);
             padding: 0.2rem 0.8rem;
@@ -227,303 +181,900 @@
             font-weight: 600;
             font-size: 0.8rem;
             transition: all 0.2s;
+            cursor: pointer;
+            background: transparent;
         }
-        .btn-outline:hover {
-            background: var(--accent);
-            color: white;
-        }
+        .btn-outline:hover { background: var(--accent); color: white; }
+        .btn-primary { background: var(--accent); color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 40px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); }
 
-        /* Professional Connect Section */
-        .connect-container {
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .skill-category { background: var(--card); border-radius: 20px; padding: 1rem; border: 1px solid var(--border); }
+        .skill-category h4 { color: var(--accent); margin-bottom: 0.8rem; font-size: 0.9rem; }
+        .skill-items { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+        .contact-info { display: flex; flex-direction: column; gap: 1rem; }
+        .contact-card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 1.2rem;
             display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: inherit;
         }
+        .contact-card:hover { transform: translateX(5px); border-color: var(--accent); }
+        .contact-icon { width: 50px; height: 50px; background: rgba(59, 130, 246, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--accent); }
+        .contact-details h4 { font-size: 0.9rem; margin-bottom: 0.2rem; }
+        .contact-details p, .contact-details a { color: var(--text-secondary); font-size: 0.8rem; text-decoration: none; }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.3rem; color: var(--text-secondary); }
+        .form-control { width: 100%; padding: 0.8rem 1rem; background: var(--input-bg); border: 1px solid var(--border); border-radius: 12px; color: var(--text); font-size: 0.85rem; outline: none; }
+        .form-control:focus { border-color: var(--accent); }
+        textarea.form-control { min-height: 100px; resize: vertical; }
+
+        .connect-container { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; }
         .connect-card {
             flex: 1;
-            min-width: 200px;
+            min-width: 180px;
             text-align: center;
-            padding: 1.8rem;
+            padding: 1.5rem;
             background: var(--surface);
             backdrop-filter: blur(12px);
             border: 1px solid var(--card-border);
             border-radius: 24px;
             transition: all 0.3s ease;
             cursor: pointer;
+            text-decoration: none;
+            color: inherit;
         }
-        .connect-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--accent);
-            box-shadow: var(--glow);
-        }
-        .connect-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        .connect-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        .connect-detail {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            word-break: break-all;
-        }
-        .connect-status {
-            margin-top: 1rem;
-            font-size: 0.7rem;
-            display: inline-block;
-            background: var(--success);
-            color: #0a0c10;
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            font-weight: 600;
-        }
-        .availability-box {
-            margin-top: 2rem;
-            text-align: center;
-            padding: 1rem;
-            background: rgba(59, 130, 246, 0.1);
-            border-radius: 20px;
-            border: 1px solid var(--card-border);
-        }
+        .connect-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: var(--glow); }
+        .availability-box { margin-top: 1.5rem; text-align: center; padding: 1rem; background: rgba(59, 130, 246, 0.1); border-radius: 20px; border: 1px solid var(--card-border); }
 
-        /* Spacing Fix - Certifications & Current Role ke liye gap */
-        .cert-exp-wrapper {
-            margin-top: 2.5rem;
+        /* Admin Panel */
+        .admin-login-modal, .admin-panel-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
         }
+        .admin-login-modal.active, .admin-panel-modal.active { display: flex; }
+        .admin-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 2rem;
+            width: 400px;
+            max-width: 90%;
+        }
+        .admin-card h2 { text-align: center; margin-bottom: 1.5rem; }
+        .admin-card input { width: 100%; padding: 0.8rem 1rem; background: var(--input-bg); border: 1px solid var(--border); border-radius: 12px; color: var(--text); margin-bottom: 1rem; }
+        .admin-panel-container { width: 90%; max-width: 1200px; max-height: 90vh; overflow-y: auto; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+        .messages-table { width: 100%; border-collapse: collapse; }
+        .messages-table th, .messages-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+        .messages-table th { color: var(--accent); font-weight: 600; }
+        .delete-btn, .edit-btn, .reply-btn { background: var(--danger); color: white; border: none; padding: 0.3rem 0.8rem; border-radius: 6px; cursor: pointer; margin-right: 0.3rem; }
+        .edit-btn { background: var(--warning); }
+        .reply-btn { background: var(--success); }
+        .add-message-btn { background: var(--success); padding: 0.5rem 1rem; border-radius: 8px; border: none; cursor: pointer; }
+        .add-message-form { background: var(--surface); border-radius: 20px; padding: 1rem; margin-bottom: 1.5rem; border: 1px solid var(--border); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+        @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } }
 
-        hr {
-            border-color: var(--border);
-            margin: 3rem 0 1rem;
+        /* Project Modals */
+        .project-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
         }
-        footer {
-            text-align: center;
-            padding: 2rem 0;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
+        .project-modal.active { display: block; }
+        .rms-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center; }
+        .rms-modal.active { display: flex; }
+        .modal-content {
+            max-width: 1400px;
+            margin: 1rem auto;
+            background: var(--bg);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
         }
+        .modal-close {
+            position: sticky;
+            top: 10px;
+            right: 20px;
+            float: right;
+            background: var(--danger);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10000;
+            margin: 10px;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            .name { font-size: 2.2rem; }
-            .typing-text { font-size: 1rem; }
-            .connect-card { min-width: 100%; }
+            .grid-4, .grid-3, .grid-2 { gap: 1rem; }
+            .project-card, .skill-card { padding: 1rem; }
+            .messages-table th, .messages-table td { padding: 0.5rem; font-size: 0.7rem; }
         }
     </style>
 </head>
 <body>
 
-<!-- Animated Network Background -->
-<div class="network-bg">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800">
-        <defs>
-            <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.2" />
-                <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.05" />
-            </linearGradient>
-        </defs>
-        <circle cx="200" cy="200" r="3" fill="#3b82f6" opacity="0.6"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="3s" repeatCount="indefinite"/></circle>
-        <circle cx="500" cy="150" r="4" fill="#60a5fa" opacity="0.5"><animate attributeName="opacity" values="0.3;0.9;0.3" dur="4s" repeatCount="indefinite"/></circle>
-        <circle cx="800" cy="300" r="3" fill="#3b82f6" opacity="0.7"/>
-        <circle cx="350" cy="500" r="5" fill="#8b5cf6" opacity="0.4"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="5s" repeatCount="indefinite"/></circle>
-        <circle cx="700" cy="600" r="3" fill="#3b82f6" opacity="0.6"/>
-        <line x1="200" y1="200" x2="500" y2="150" stroke="#3b82f6" stroke-width="0.5" opacity="0.3"/>
-        <line x1="500" y1="150" x2="800" y2="300" stroke="#60a5fa" stroke-width="0.5" opacity="0.3"/>
-        <line x1="350" y1="500" x2="700" y2="600" stroke="#8b5cf6" stroke-width="0.5" opacity="0.3"/>
-        <line x1="200" y1="200" x2="350" y2="500" stroke="#3b82f6" stroke-width="0.5" opacity="0.2"/>
-    </svg>
+<div class="network-nodes">
+    <canvas id="networkCanvas"></canvas>
 </div>
 
 <div class="container">
-    <!-- Theme Toggle -->
     <div class="theme-switch">
-        <button class="toggle-btn" id="themeToggle">🌓 Dark / Light Mode</button>
+        <button class="toggle-btn" id="themeToggle"><i class="fas fa-moon" id="themeIcon"></i> <span id="themeText">Dark Mode</span></button>
     </div>
 
-    <!-- Header -->
     <div class="header">
         <div class="status-badge">🟢 ACTIVE / OPEN FOR NETWORK OPPORTUNITIES</div>
         <h1 class="name">Asad Bahadur</h1>
         <div class="typing-text" id="typing"></div>
-        <div class="badge-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin-top: 1.5rem;">
+        <div class="badge-container">
             <span class="tech-tag">⭐ 3+ Years IT Experience</span>
             <span class="tech-tag">🏆 Cisco Certified</span>
-            <span class="tech-tag">💼 KABABJEES GROUPS</span>
-            <span class="tech-tag">🌐 System Admin + Dev</span>
+            <span class="tech-tag">💼 IT System Administrator</span>
+            <span class="tech-tag">🌐 Network Engineer</span>
         </div>
     </div>
 
-    <!-- About Section -->
-    <div class="glass-card" style="padding: 2rem; margin-bottom: 1.5rem;">
-        <p style="font-size: 1.1rem; font-weight: 500;">🔹 <strong>IT Generalist & Problem Solver</strong> — 3+ years handling complete IT infrastructure, network administration, helpdesk, and building internal automation tools. I don't just manage IT; I improve it with code & monitoring.</p>
+    <div class="glass-card" style="padding: 1.5rem; margin-bottom: 1.5rem;">
+        <p style="font-size: clamp(0.9rem, 4vw, 1.1rem); font-weight: 500;">🔹 <strong>IT Generalist & Problem Solver</strong> — 3+ years handling complete IT infrastructure, network administration, helpdesk, and building internal automation tools. I don't just manage IT; I improve it with code & monitoring.</p>
     </div>
 
-    <!-- Core Expertise -->
-    <h2 class="section-title">⚙️ Core Competencies</h2>
+    <h2 class="section-title">⚙️ Technical Skills</h2>
+    <div class="skills-grid">
+        <div class="skill-category"><h4>🌐 Network & Infrastructure</h4><div class="skill-items"><span class="tech-tag">TCP/IP</span><span class="tech-tag">DNS/DHCP</span><span class="tech-tag">VLANs</span><span class="tech-tag">Routing & Switching</span><span class="tech-tag">LAN/WAN</span><span class="tech-tag">MikroTik</span><span class="tech-tag">UniFi</span><span class="tech-tag">TP-Link</span></div></div>
+        <div class="skill-category"><h4>🖥️ System Administration</h4><div class="skill-items"><span class="tech-tag">Windows Server</span><span class="tech-tag">Active Directory</span><span class="tech-tag">Microsoft 365</span><span class="tech-tag">System Monitoring</span><span class="tech-tag">Patch Management</span><span class="tech-tag">Backup & DR</span></div></div>
+        <div class="skill-category"><h4>💻 Virtualization & Dev</h4><div class="skill-items"><span class="tech-tag">VMware</span><span class="tech-tag">Oracle VM</span><span class="tech-tag">Hyper-V</span><span class="tech-tag">SQL Basics</span><span class="tech-tag">XAMPP</span><span class="tech-tag">PHP</span></div></div>
+        <div class="skill-category"><h4>🔒 Security & Monitoring</h4><div class="skill-items"><span class="tech-tag">Firewall Config</span><span class="tech-tag">Endpoint Security</span><span class="tech-tag">VPN</span><span class="tech-tag">Antivirus Mgmt</span><span class="tech-tag">Network Monitor</span><span class="tech-tag">API Monitoring</span></div></div>
+        <div class="skill-category"><h4>📞 Support & Communication</h4><div class="skill-items"><span class="tech-tag">Help Desk Support</span><span class="tech-tag">VoIP/IP Phones</span><span class="tech-tag">Ticket Management</span><span class="tech-tag">Documentation</span><span class="tech-tag">Troubleshooting</span></div></div>
+    </div>
+
+    <h2 class="section-title">📜 Certifications</h2>
     <div class="grid-3">
-        <div class="glass-card skill-card">
-            <h3>🌍 Network & Security</h3>
-            <div class="tech-stack">
-                <span class="tech-tag">Cisco</span><span class="tech-tag">TCP/IP</span><span class="tech-tag">DNS/DHCP</span><span class="tech-tag">Firewalls</span><span class="tech-tag">VPN</span><span class="tech-tag">Monitoring</span>
-            </div>
+        <div class="glass-card cert-card"><h3>🔐 Cisco Network Defence</h3><p style="font-size:0.8rem; color:var(--text-secondary);">Advanced network security certification</p></div>
+        <div class="glass-card cert-card"><h3>🖧 Cisco IT Support Specialist</h3><p style="font-size:0.8rem; color:var(--text-secondary);">Professional IT support certification</p></div>
+        <div class="glass-card cert-card"><h3>🛡️ Cisco Cyber Security</h3><p style="font-size:0.8rem; color:var(--text-secondary);">Cybersecurity fundamentals certification</p></div>
+    </div>
+
+    <h2 class="section-title">📁 Enterprise Projects</h2>
+    <div class="grid-4">
+        <div class="glass-card project-card"><div class="project-title">📋 RMS – Request Mgmt System <span class="live-badge">Live</span></div><div class="tech-stack"><span class="tech-tag">PHP</span><span class="tech-tag">MySQL</span><span class="tech-tag">JavaScript</span></div><p>3-tier role-based request tracking system with approval workflow. User → Admin → Superadmin.</p><button class="btn-outline" onclick="openRMSModal()">🚀 Launch Demo →</button></div>
+        <div class="glass-card project-card"><div class="project-title">🎫 IT Ticketing System <span class="live-badge">Live</span></div><div class="tech-stack"><span class="tech-tag">PHP</span><span class="tech-tag">MySQL</span><span class="tech-tag">JavaScript</span></div><p>Enterprise IT support ticketing with SLA management and priority tracking.</p><button class="btn-outline" onclick="openTicketModal()">🚀 Launch Demo →</button></div>
+        <div class="glass-card project-card"><div class="project-title">📡 Server & API Monitor <span class="live-badge">Live</span></div><div class="tech-stack"><span class="tech-tag">PHP</span><span class="tech-tag">JavaScript</span><span class="tech-tag">REST API</span></div><p>Real-time health dashboard for APIs, servers & network endpoints with history tracking.</p><button class="btn-outline" onclick="openMonitorTool()">🚀 Launch Demo →</button></div>
+        <div class="glass-card project-card"><div class="project-title">🖥️ Menu LCD – Signage <span class="live-badge">Live</span></div><div class="tech-stack"><span class="tech-tag">HTML5</span><span class="tech-tag">JS</span><span class="tech-tag">LocalStorage</span></div><p>Digital menu display system for restaurants & food brands with drag-drop upload.</p><button class="btn-outline" onclick="openMenuLCDModal()">🚀 Launch Demo →</button></div>
+    </div>
+
+    <h2 class="section-title">💼 Experience & Expertise</h2>
+    <div class="grid-2">
+        <div class="glass-card experience-card">
+            <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--accent);">Current Role</h3>
+            <p style="font-size: 1rem; font-weight: 600; margin-bottom: 0.3rem;">System Administrator & IT Support</p>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1rem;">KABABJEES GROUPS (2.5+ years)</p>
+            <ul style="margin-left: 1.2rem;"><li>Full IT operations + infrastructure</li><li>Helpdesk & ticket resolution</li><li>Built internal tools to automate workflows</li></ul>
         </div>
-        <div class="glass-card skill-card">
-            <h3>🖥️ System Administration</h3>
-            <div class="tech-stack">
-                <span class="tech-tag">Windows/Linux</span><span class="tech-tag">Active Directory</span><span class="tech-tag">Backup</span><span class="tech-tag">Help Desk</span><span class="tech-tag">IT Asset</span>
-            </div>
+        <div class="glass-card experience-card">
+            <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--accent);">What I Do</h3>
+            <p style="font-size: 0.9rem; line-height: 1.6;">I bridge the gap between IT infrastructure and software development. From configuring Cisco switches to building PHP dashboards, I create solutions that make IT operations smarter, faster, and more reliable.</p>
         </div>
-        <div class="glass-card skill-card">
-            <h3>💻 Development for IT</h3>
-            <div class="tech-stack">
-                <span class="tech-tag">Python</span><span class="tech-tag">PHP</span><span class="tech-tag">JavaScript</span><span class="tech-tag">MySQL</span><span class="tech-tag">APIs</span><span class="tech-tag">Dashboards</span>
+    </div>
+
+    <h2 class="section-title">📬 Get In Touch</h2>
+    <div class="glass-card" style="padding: 1.5rem;">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <a href="mailto:asadbahadur07@gmail.com" class="contact-card"><div class="contact-icon"><i class="fas fa-envelope"></i></div><div class="contact-details"><h4>Email</h4><p>asadbahadur07@gmail.com</p></div></a>
+                <a href="https://wa.me/923112674395" target="_blank" class="contact-card"><div class="contact-icon"><i class="fab fa-whatsapp"></i></div><div class="contact-details"><h4>WhatsApp / Phone</h4><p>0311 2674395</p></div></a>
+                <a href="https://www.linkedin.com/in/asad-bahadur-b206752b2/" target="_blank" class="contact-card"><div class="contact-icon"><i class="fab fa-linkedin"></i></div><div class="contact-details"><h4>LinkedIn</h4><p>Connect on LinkedIn</p></div></a>
+                <a href="https://github.com/asadbahadur" target="_blank" class="contact-card"><div class="contact-icon"><i class="fab fa-github"></i></div><div class="contact-details"><h4>GitHub</h4><p>github.com/asadbahadur</p></div></a>
+            </div>
+            <div>
+                <form id="contactForm">
+                    <div class="form-group"><label>Full Name *</label><input type="text" id="contactName" class="form-control" required placeholder="Your full name"></div>
+                    <div class="form-group"><label>Email *</label><input type="email" id="contactEmail" class="form-control" required placeholder="your@email.com"></div>
+                    <div class="form-group"><label>Phone Number</label><input type="tel" id="contactPhone" class="form-control" placeholder="Your phone number"></div>
+                    <div class="form-group"><label>Message *</label><textarea id="contactMessage" class="form-control" required placeholder="Tell me about your project..."></textarea></div>
+                    <button type="submit" class="btn-primary" style="width:100%;">Send Message <i class="fas fa-paper-plane"></i></button>
+                </form>
             </div>
         </div>
     </div>
 
-    <!-- Projects -->
-    <h2 class="section-title">📁 Enterprise Projects (Self-Built)</h2>
-    <div class="grid-3">
-        <div class="glass-card project-card">
-            <div class="project-title">📋 RMS – Request Mgmt System</div>
-            <div class="tech-stack"><span class="tech-tag">PHP</span><span class="tech-tag">MySQL</span><span class="tech-tag">Bootstrap</span></div>
-            <p>Internal portal for IT requests — track approvals, automate assignment, reduce email chaos.</p>
-            <a href="#" class="btn-outline">🔗 Source on GitHub →</a>
-        </div>
-        <div class="glass-card project-card">
-            <div class="project-title">🎫 IT Ticketing System</div>
-            <div class="tech-stack"><span class="tech-tag">Python/Django</span><span class="tech-tag">SQLite</span></div>
-            <p>Full helpdesk solution: priorities, technician assignment, status, email notifications.</p>
-            <a href="#" class="btn-outline">🔗 Source on GitHub →</a>
-        </div>
-        <div class="glass-card project-card">
-            <div class="project-title">📡 Server & API Monitor</div>
-            <div class="tech-stack"><span class="tech-tag">Python</span><span class="tech-tag">Shell</span><span class="tech-tag">Grafana</span></div>
-            <p>Real-time health checks for APIs, CPU, RAM, disk — proactive alerting dashboard.</p>
-            <a href="https://github.com/ServerAndAPIMonitor" target="_blank" class="btn-outline">🔗 Source on GitHub →</a>
-        </div>
-    </div>
-
-    <!-- ========== FIXED: Certifications + Current Role with PROPER GAP ========== -->
-    <div class="cert-exp-wrapper">
-        <div class="grid-2">
-            <div class="glass-card" style="padding: 1.8rem;">
-                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">📜 Certifications</h3>
-                <ul style="margin-left: 1.2rem;">
-                    <li>✅ Cisco – IT Customer Support Basics</li>
-                    <li>✅ Cisco – Introduction to Cybersecurity</li>
-                    <li>✅ Cisco – Network Basics</li>
-                </ul>
-            </div>
-            <div class="glass-card" style="padding: 1.8rem;">
-                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">💼 Current Role</h3>
-                <p><strong>System Administrator & IT Support</strong><br>KABABJEES GROUPS (2.5+ years)</p>
-                <ul style="margin-left: 1.2rem; margin-top: 0.5rem;">
-                    <li>Full IT operations + infrastructure</li>
-                    <li>Helpdesk & ticket resolution</li>
-                    <li>Built internal tools to automate workflows</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- ================================================================= -->
-
-    <!-- Professional Connect Section -->
     <h2 class="section-title">🌐 Connect / Network</h2>
     <div class="connect-container">
-        <a href="mailto:asadbahadur07@gmail.com" style="text-decoration: none; color: inherit;">
-            <div class="connect-card">
-                <div class="connect-icon">📧</div>
-                <div class="connect-title">Email</div>
-                <div class="connect-detail">asadbahadur07@gmail.com</div>
-                <div class="connect-status">✉️ Reply within 4hrs</div>
-            </div>
-        </a>
-        <a href="https://linkedin.com/in/asad-bahadur-b206752b2" target="_blank" style="text-decoration: none; color: inherit;">
-            <div class="connect-card">
-                <div class="connect-icon">🔗</div>
-                <div class="connect-title">LinkedIn</div>
-                <div class="connect-detail">asad-bahadur</div>
-                <div class="connect-status">💼 500+ connections</div>
-            </div>
-        </a>
-        <a href="https://github.com/asadbahadur" target="_blank" style="text-decoration: none; color: inherit;">
-            <div class="connect-card">
-                <div class="connect-icon">🐙</div>
-                <div class="connect-title">GitHub</div>
-                <div class="connect-detail">github.com/asadbahadur</div>
-                <div class="connect-status">📂 3+ public repos</div>
-            </div>
-        </a>
+        <a href="mailto:asadbahadur07@gmail.com" class="connect-card"><div class="connect-icon">📧</div><div class="connect-title">Email</div><div class="connect-detail">asadbahadur07@gmail.com</div><div class="connect-status">Reply within 4hrs</div></a>
+        <a href="https://www.linkedin.com/in/asad-bahadur-b206752b2/" target="_blank" class="connect-card"><div class="connect-icon">🔗</div><div class="connect-title">LinkedIn</div><div class="connect-detail">Connect on LinkedIn</div><div class="connect-status">500+ connections</div></a>
+        <a href="https://github.com/asadbahadur" target="_blank" class="connect-card"><div class="connect-icon">🐙</div><div class="connect-title">GitHub</div><div class="connect-detail">github.com/asadbahadur</div><div class="connect-status">Public repos</div></a>
     </div>
-    <div class="availability-box">
-        <span style="font-weight: 700;">🟢 Available for:</span> Freelance IT Consulting | Network Audits | Automation Projects | Full-time Roles
-    </div>
-    <div style="text-align: center; margin-top: 1rem;">
-        <span class="tech-tag">🌍 Portfolio Live: asadbahadur.github.io (soon)</span>
-    </div>
-
+    <div class="availability-box"><span style="font-weight: 700;">🟢 Available for:</span> Freelance IT Consulting | Network Audits | Automation Projects | Full-time Roles</div>
     <hr>
-    <footer>
-        “Automating IT infrastructure with code & network intelligence.” — Asad Bahadur
-    </footer>
+    <footer style="text-align:center; padding:1rem; color:var(--text-secondary); font-size:0.75rem;">“Automating IT infrastructure with code & network intelligence.” — Asad Bahadur</footer>
+</div>
+
+<!-- Project Modals Container -->
+<div id="monitorModal" class="project-modal"><div class="modal-content"><button class="modal-close" onclick="closeMonitorTool()">×</button><div id="monitorToolContainer"></div></div></div>
+<div id="rmsModal" class="project-modal"><div class="modal-content"><button class="modal-close" onclick="closeRMSModal()">×</button><div id="rmsToolContainer"></div></div></div>
+<div id="ticketModal" class="project-modal"><div class="modal-content"><button class="modal-close" onclick="closeTicketModal()">×</button><div id="ticketToolContainer"></div></div></div>
+<div id="menuLCDModal" class="project-modal"><div class="modal-content"><button class="modal-close" onclick="closeMenuLCDModal()">×</button><div id="menuLCDContainer"></div></div></div>
+
+<!-- Admin Panel -->
+<div id="adminLoginModal" class="admin-login-modal">
+    <div class="admin-card"><h2><i class="fas fa-shield-alt"></i> NEXUS Admin</h2><input type="password" id="adminPassword" placeholder="Enter password"><button class="btn-primary" style="width:100%;" onclick="adminLogin()">Access Panel</button><p style="text-align:center; margin-top:1rem; font-size:0.7rem;">Authorized access only</p></div>
+</div>
+
+<div id="adminPanelModal" class="admin-panel-modal">
+    <div class="admin-panel-container glass-card" style="padding:1.5rem;">
+        <div class="admin-header">
+            <h2><i class="fas fa-crown"></i> NEXUS - Admin Dashboard</h2>
+            <div><button class="btn-primary" onclick="closeAdminPanel()">Close Panel</button></div>
+        </div>
+        <div class="add-message-form">
+            <h3 style="margin-bottom:1rem; color:var(--accent);"><i class="fas fa-plus-circle"></i> Add New Message</h3>
+            <div class="form-row"><input type="text" id="newMsgName" class="form-control" placeholder="Name *"><input type="email" id="newMsgEmail" class="form-control" placeholder="Email *"></div>
+            <div class="form-row"><input type="text" id="newMsgPhone" class="form-control" placeholder="Phone (optional)"><input type="text" id="newMsgDate" class="form-control" placeholder="Date (auto)"></div>
+            <textarea id="newMsgContent" class="form-control" rows="2" placeholder="Message content *"></textarea>
+            <button class="add-message-btn" style="margin-top:1rem; width:auto;" onclick="addNewMessage()"><i class="fas fa-save"></i> Add Message</button>
+        </div>
+        <div id="adminMessagesList"></div>
+    </div>
 </div>
 
 <script>
-    // Typing Animation
-    const roles = [
-        "🖧 IT Generalist & Network Engineer",
-        "⚙️ System Administrator | Web Developer",
-        "📡 Monitoring & Automation Enthusiast",
-        "🔐 Cisco Certified | IT Support Pro"
-    ];
-    let roleIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    const typingElement = document.getElementById('typing');
+    // ========== NETWORK ANIMATION ==========
+    function initNetworkCanvas() {
+        const canvas = document.getElementById('networkCanvas');
+        if (!canvas) return;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        for (let i = 0; i < 40; i++) {
+            particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, radius: Math.random() * 2 + 1, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3 });
+        }
+        function animate() {
+            if (!canvas || !ctx) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const isLight = document.body.classList.contains('light');
+            const lineColor = isLight ? 'rgba(37, 99, 235, 0.15)' : 'rgba(59, 130, 246, 0.2)';
+            const dotColor = isLight ? 'rgba(37, 99, 235, 0.4)' : 'rgba(59, 130, 246, 0.5)';
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = dotColor;
+                ctx.fill();
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dx = p.x - p2.x, dy = p.y - p2.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = lineColor;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+    }
 
+    // ========== TYPING ANIMATION ==========
+    const roles = ["🖧 IT Generalist & Network Engineer", "⚙️ System Administrator | Web Developer", "📡 Monitoring & Automation Enthusiast", "🔐 Cisco Certified | IT Support Pro"];
+    let roleIndex = 0, charIndex = 0, isDeleting = false;
+    const typingElement = document.getElementById('typing');
     function typeEffect() {
+        if (!typingElement) return;
         const currentRole = roles[roleIndex];
         if (isDeleting) {
             typingElement.innerHTML = currentRole.substring(0, charIndex - 1) + '<span class="cursor">|</span>';
             charIndex--;
-            if (charIndex === 0) {
-                isDeleting = false;
-                roleIndex = (roleIndex + 1) % roles.length;
-            }
+            if (charIndex === 0) { isDeleting = false; roleIndex = (roleIndex + 1) % roles.length; }
         } else {
             typingElement.innerHTML = currentRole.substring(0, charIndex + 1) + '<span class="cursor">|</span>';
             charIndex++;
-            if (charIndex === currentRole.length) {
-                isDeleting = true;
-                setTimeout(() => {}, 1500);
-            }
+            if (charIndex === currentRole.length) { isDeleting = true; }
         }
-        setTimeout(typeEffect, isDeleting ? 60 : 100);
+        setTimeout(typeEffect, isDeleting ? 50 : 80);
     }
     typeEffect();
 
-    // Theme toggle
+    // ========== THEME TOGGLE ==========
     const toggleBtn = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
     const body = document.body;
     function setTheme(theme) {
         if (theme === 'light') {
             body.classList.add('light');
+            if (themeIcon) themeIcon.className = 'fas fa-sun';
+            if (themeText) themeText.innerText = 'Light Mode';
             localStorage.setItem('portfolio-theme', 'light');
         } else {
             body.classList.remove('light');
+            if (themeIcon) themeIcon.className = 'fas fa-moon';
+            if (themeText) themeText.innerText = 'Dark Mode';
             localStorage.setItem('portfolio-theme', 'dark');
         }
+        setTimeout(initNetworkCanvas, 100);
     }
-    toggleBtn.addEventListener('click', () => {
-        if (body.classList.contains('light')) setTheme('dark');
-        else setTheme('light');
-    });
+    if (toggleBtn) toggleBtn.addEventListener('click', () => { if (body.classList.contains('light')) setTheme('dark'); else setTheme('light'); });
     const savedTheme = localStorage.getItem('portfolio-theme');
-    if (savedTheme === 'light') setTheme('light');
-    else setTheme('dark');
+    if (savedTheme === 'light') setTheme('light'); else setTheme('dark');
+    initNetworkCanvas();
+
+    // ========== MESSAGES DATA (Admin Panel) ==========
+    let messages = JSON.parse(localStorage.getItem('visitor_messages') || '[]');
+    function saveMessages() { localStorage.setItem('visitor_messages', JSON.stringify(messages)); renderAdminMessages(); }
+    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+
+    function addNewMessage() {
+        const name = document.getElementById('newMsgName').value;
+        const email = document.getElementById('newMsgEmail').value;
+        const phone = document.getElementById('newMsgPhone').value;
+        const content = document.getElementById('newMsgContent').value;
+        if (!name || !email || !content) { alert('Please fill Name, Email and Message'); return; }
+        messages.unshift({ id: Date.now(), name: name, email: email, phone: phone || '-', message: content, date: new Date().toLocaleString() });
+        saveMessages();
+        document.getElementById('newMsgName').value = '';
+        document.getElementById('newMsgEmail').value = '';
+        document.getElementById('newMsgPhone').value = '';
+        document.getElementById('newMsgContent').value = '';
+        alert('Message added successfully!');
+    }
+
+    function editMessage(id) {
+        const msg = messages.find(m => m.id === id);
+        if (!msg) return;
+        const newName = prompt('Edit Name:', msg.name);
+        const newEmail = prompt('Edit Email:', msg.email);
+        const newPhone = prompt('Edit Phone:', msg.phone);
+        const newMessage = prompt('Edit Message:', msg.message);
+        if (newName && newEmail && newMessage) {
+            msg.name = newName;
+            msg.email = newEmail;
+            msg.phone = newPhone || '-';
+            msg.message = newMessage;
+            saveMessages();
+            alert('Message updated successfully!');
+        }
+    }
+
+    function replyToClient(email, name) {
+        const subject = encodeURIComponent(`Response to your message - Asad Bahadur`);
+        const body = encodeURIComponent(`Dear ${name},\n\nThank you for reaching out. I have received your message and will get back to you shortly.\n\nBest regards,\nAsad Bahadur\nIT Consultant & Network Engineer`);
+        window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    }
+
+    function deleteMessage(id) { if (confirm('Delete this message?')) { messages = messages.filter(m => m.id !== id); saveMessages(); } }
+
+    function renderAdminMessages() {
+        const container = document.getElementById('adminMessagesList');
+        if (messages.length === 0) { container.innerHTML = '<p style="text-align:center; padding:2rem;">No messages yet</p>'; return; }
+        container.innerHTML = `<table class="messages-table"><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Message</th><th>Date</th><th>Actions</th></tr></thead><tbody>${messages.map(m => `<tr><td>${escapeHtml(m.name)}</td><td><a href="mailto:${escapeHtml(m.email)}" style="color: var(--accent);">${escapeHtml(m.email)}</a></td><td>${escapeHtml(m.phone || '-')}</td><td>${escapeHtml(m.message.substring(0, 100))}${m.message.length > 100 ? '...' : ''}</td><td style="font-size:0.75rem;">${escapeHtml(m.date)}</td><td><button class="reply-btn" onclick="replyToClient('${escapeHtml(m.email)}', '${escapeHtml(m.name)}')"><i class="fas fa-reply"></i> Reply</button><button class="edit-btn" onclick="editMessage(${m.id})"><i class="fas fa-edit"></i> Edit</button><button class="delete-btn" onclick="deleteMessage(${m.id})"><i class="fas fa-trash"></i> Delete</button></td></tr>`).join('')}</tbody></table>`;
+    }
+
+    document.getElementById('contactForm')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('contactName').value;
+        const email = document.getElementById('contactEmail').value;
+        const phone = document.getElementById('contactPhone').value;
+        const message = document.getElementById('contactMessage').value;
+        if (!name || !email || !message) { alert('Please fill required fields'); return; }
+        messages.unshift({ id: Date.now(), name: name, email: email, phone: phone || '-', message: message, date: new Date().toLocaleString() });
+        saveMessages();
+        alert('Message sent successfully! I will get back to you soon.');
+        document.getElementById('contactForm').reset();
+    });
+
+    function adminLogin() {
+        const pwd = document.getElementById('adminPassword').value;
+        if (pwd === 'admin123') {
+            document.getElementById('adminLoginModal').classList.remove('active');
+            renderAdminMessages();
+            document.getElementById('adminPanelModal').classList.add('active');
+        } else { alert('Invalid password'); }
+    }
+    function closeAdminPanel() { document.getElementById('adminPanelModal').classList.remove('active'); }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+            e.preventDefault();
+            document.getElementById('adminLoginModal').classList.add('active');
+        }
+    });
+
+    document.getElementById('adminLoginModal')?.addEventListener('click', (e) => { if(e.target === document.getElementById('adminLoginModal')) document.getElementById('adminLoginModal').classList.remove('active'); });
+    document.getElementById('adminPanelModal')?.addEventListener('click', (e) => { if(e.target === document.getElementById('adminPanelModal')) document.getElementById('adminPanelModal').classList.remove('active'); });
+
+    // ========== UPGRADE FUNCTION ==========
+    function showUpgrade() {
+        closeMonitorTool();
+        closeRMSModal();
+        closeTicketModal();
+        closeMenuLCDModal();
+        setTimeout(() => {
+            document.getElementById('contactForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => document.getElementById('contactName').focus(), 500);
+        }, 300);
+    }
+
+    // ========== SERVER & API MONITOR ==========
+    const monitorToolHTML = `
+    <style>
+        .monitor-wrapper { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #0a0e1a 0%, #0f1622 100%); color: #e2e8f0; min-height: 100vh; padding: 1.5rem; }
+        body.light .monitor-wrapper { background: linear-gradient(135deg, #eef2ff 0%, #ffffff 100%); color: #0f172a; }
+        .monitor-container { max-width: 1400px; margin: 0 auto; }
+        .monitor-header { text-align: center; margin-bottom: 2rem; }
+        .monitor-brand h1 { font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .monitor-brand-sub { font-size: 0.7rem; color: #64748b; letter-spacing: 2px; }
+        .demo-banner { background: linear-gradient(135deg, #1e293b, #0f172a); padding: 0.4rem 1rem; border-radius: 40px; margin-top: 1rem; display: inline-block; font-size: 0.7rem; }
+        body.light .demo-banner { background: linear-gradient(135deg, #e2e8f0, #cbd5e1); color: #0f172a; }
+        .monitor-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .monitor-stat-card { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 1rem; text-align: center; }
+        .monitor-stat-card .stat-value { font-size: 1.8rem; font-weight: 700; color: #3b82f6; }
+        .monitor-controls { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.5rem; background: rgba(15, 23, 42, 0.4); padding: 0.8rem 1rem; border-radius: 50px; }
+        .monitor-search { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.08); padding: 0.6rem 1rem; border-radius: 40px; color: #fff; width: 220px; }
+        .monitor-filter-btn { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 0.4rem 1rem; border-radius: 40px; color: #cbd5e1; font-size: 0.7rem; cursor: pointer; }
+        .monitor-filter-btn.active { background: #3b82f6; color: white; }
+        .monitor-refresh { background: linear-gradient(135deg, #3b82f6, #2563eb); border: none; padding: 0.5rem 1.2rem; border-radius: 40px; color: white; cursor: pointer; }
+        .monitor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+        @media (max-width: 768px) { .monitor-grid { grid-template-columns: 1fr; } }
+        .monitor-card { background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 1rem; }
+        .monitor-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .status-up { background: #22c55e; box-shadow: 0 0 6px #22c55e; }
+        .status-down { background: #ef4444; box-shadow: 0 0 6px #ef4444; }
+        .monitor-name { font-weight: 600; flex: 1; }
+        .history-bars { display: flex; gap: 2px; margin: 10px 0; height: 20px; }
+        .history-bar { flex: 1; border-radius: 2px; }
+        .bar-up { background: #22c55e; }
+        .bar-down { background: #ef4444; }
+        .bar-empty { background: rgba(255,255,255,0.05); }
+        .monitor-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+        .uptime-text { font-size: 0.7rem; color: #64748b; }
+        .check-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 3px 12px; border-radius: 20px; color: #94a3b8; font-size: 0.65rem; cursor: pointer; }
+        body.light .monitor-stat-card, body.light .monitor-card, body.light .monitor-controls { background: rgba(255,255,255,0.8); border-color: #cbd5e1; color: #0f172a; }
+        body.light .monitor-search { background: #f1f5f9; border-color: #cbd5e1; color: #0f172a; }
+        body.light .monitor-filter-btn { background: #f1f5f9; border-color: #cbd5e1; color: #334155; }
+        body.light .monitor-filter-btn.active { background: #3b82f6; color: white; }
+        body.light .bar-empty { background: #e2e8f0; }
+        body.light .check-btn { background: #f1f5f9; border-color: #cbd5e1; color: #334155; }
+    </style>
+    <div class="monitor-wrapper"><div class="monitor-container"><div class="monitor-header"><div class="monitor-brand"><h1>NEXUS TECH-SOLUTIONS</h1><div class="monitor-brand-sub">NETWORK & SERVER MONITOR</div></div><div class="demo-banner"><span>🚀 FREE DEMO | </span><span onclick="showUpgrade()" style="cursor:pointer;">✨ Upgrade to Premium</span></div></div>
+    <div class="monitor-stats"><div class="monitor-stat-card"><div class="stat-label">Total Assets</div><div class="stat-value" id="statTotal">0</div></div><div class="monitor-stat-card"><div class="stat-label">Operational</div><div class="stat-value" id="statUp" style="color:#22c55e">0</div></div><div class="monitor-stat-card"><div class="stat-label">Critical</div><div class="stat-value" id="statDown" style="color:#ef4444">0</div></div><div class="monitor-stat-card"><div class="stat-label">System Health</div><div class="stat-value" id="statHealth">100%</div></div></div>
+    <div class="monitor-controls"><input type="text" id="monitorSearch" class="monitor-search" placeholder="🔍 Search..."><div style="display:flex; gap:6px;"><button class="monitor-filter-btn active" data-filter="all">All</button><button class="monitor-filter-btn" data-filter="up">Up</button><button class="monitor-filter-btn" data-filter="down">Down</button></div><button class="monitor-refresh" onclick="refreshAllMonitors()">⟳ Scan</button></div>
+    <div id="monitorGrid" class="monitor-grid"></div></div></div>`;
+
+    let monitorData = [
+        { id: 1, name: "Core Gateway", type: "http", target: "gateway.nexus.local", status: "up", history: [] },
+        { id: 2, name: "Database Server", type: "port", target: "10.10.10.10:5432", status: "up", history: [] },
+        { id: 3, name: "Payment API", type: "http", target: "payments.nexus.com", status: "down", history: [] },
+        { id: 4, name: "Storage Array", type: "ping", target: "storage01.nexus.local", status: "up", history: [] },
+        { id: 5, name: "Backup Server", type: "ping", target: "backup01.nexus.local", status: "down", history: [] }
+    ];
+
+    function generateHistory(status) {
+        const hist = [];
+        for (let i = 0; i < 40; i++) {
+            let rand = Math.random();
+            if (status === 'down') hist.push(rand > 0.7 ? 'up' : 'down');
+            else if (status === 'up') hist.push(rand > 0.92 ? 'down' : 'up');
+            else hist.push(rand > 0.5 ? 'up' : 'down');
+        }
+        return hist;
+    }
+    monitorData.forEach(m => { m.history = generateHistory(m.status); });
+
+    function updateMonitorStats() {
+        const total = monitorData.length, up = monitorData.filter(m => m.status === 'up').length, down = monitorData.filter(m => m.status === 'down').length;
+        const upPoints = monitorData.reduce((s, m) => s + m.history.filter(h => h === 'up').length, 0);
+        const totalPoints = monitorData.reduce((s, m) => s + m.history.length, 0);
+        const health = totalPoints > 0 ? ((upPoints / totalPoints) * 100).toFixed(1) : 100;
+        if (document.getElementById('statTotal')) document.getElementById('statTotal').innerText = total;
+        if (document.getElementById('statUp')) document.getElementById('statUp').innerText = up;
+        if (document.getElementById('statDown')) document.getElementById('statDown').innerText = down;
+        if (document.getElementById('statHealth')) document.getElementById('statHealth').innerText = health + '%';
+    }
+
+    function renderMonitorGrid() {
+        const grid = document.getElementById('monitorGrid');
+        if (!grid) return;
+        const filter = monitorFilter, search = monitorSearch.toLowerCase();
+        let filtered = monitorData.filter(m => { if (filter !== 'all' && m.status !== filter) return false; if (search && !m.name.toLowerCase().includes(search) && !m.target.toLowerCase().includes(search)) return false; return true; });
+        if (filtered.length === 0) { grid.innerHTML = '<div style="text-align:center; padding:2rem;">No assets</div>'; return; }
+        grid.innerHTML = filtered.map(m => { const last40 = m.history.slice(-40); let bars = ''; for (let i = 0; i < 40; i++) { const status = last40[i] || 'empty'; const barClass = status === 'up' ? 'bar-up' : (status === 'down' ? 'bar-down' : 'bar-empty'); bars += `<div class="history-bar ${barClass}"></div>`; } const uptime = m.history.length ? ((m.history.filter(h => h === 'up').length / m.history.length) * 100).toFixed(1) : 100; return `<div class="monitor-card"><div class="monitor-card-header"><div class="status-dot status-${m.status}"></div><div class="monitor-name">${m.name}</div><span class="monitor-type-badge">${m.type.toUpperCase()}</span></div><div style="font-size:0.7rem;">📍 ${m.target}</div><div class="history-bars">${bars}</div><div class="monitor-footer"><span class="uptime-text">Uptime: ${uptime}%</span><button class="check-btn" onclick="checkSingleMonitor(${m.id})">Check</button></div></div>`; }).join('');
+    }
+
+    let monitorFilter = 'all', monitorSearch = '';
+    async function checkSingleMonitor(id) { const monitor = monitorData.find(m => m.id === id); if (!monitor) return; const rand = Math.random(); let newStatus = monitor.status; if (monitor.status === 'up' && rand < 0.15) newStatus = 'down'; else if (monitor.status === 'down' && rand < 0.3) newStatus = 'up'; if (monitor.status !== newStatus) monitor.status = newStatus; monitor.history.push(monitor.status); if (monitor.history.length > 40) monitor.history.shift(); updateMonitorStats(); renderMonitorGrid(); showToast(`Checked ${monitor.name}. Status: ${monitor.status.toUpperCase()}`); }
+    async function refreshAllMonitors() { for (const m of monitorData) { const rand = Math.random(); if (m.status === 'up' && rand < 0.08) m.status = 'down'; else if (m.status === 'down' && rand < 0.2) m.status = 'up'; m.history.push(m.status); if (m.history.length > 40) m.history.shift(); } updateMonitorStats(); renderMonitorGrid(); showToast('Network scan complete. Assets updated.'); }
+
+    function initMonitorTool() { updateMonitorStats(); renderMonitorGrid(); document.getElementById('monitorSearch')?.addEventListener('input', (e) => { monitorSearch = e.target.value; renderMonitorGrid(); }); document.querySelectorAll('.monitor-filter-btn').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.monitor-filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); monitorFilter = btn.dataset.filter; renderMonitorGrid(); }); }); window.refreshAllMonitors = refreshAllMonitors; window.checkSingleMonitor = checkSingleMonitor; }
+    function openMonitorTool() { const modal = document.getElementById('monitorModal'); const container = document.getElementById('monitorToolContainer'); if (container) { container.innerHTML = monitorToolHTML; setTimeout(initMonitorTool, 50); } modal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeMonitorTool() { document.getElementById('monitorModal').classList.remove('active'); document.body.style.overflow = ''; }
+
+    // ========== RMS - FULL WORKING ==========
+    const rmsToolHTML = `
+    <style>
+        .rms-wrapper { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #0d1117 0%, #161b22 100%); color: #c9d1d9; min-height: 100vh; padding: 1.5rem; }
+        body.light .rms-wrapper { background: linear-gradient(135deg, #eef2ff 0%, #ffffff 100%); color: #0f172a; }
+        .rms-container { max-width: 1400px; margin: 0 auto; }
+        .rms-header { text-align: center; margin-bottom: 2rem; }
+        .rms-brand h1 { font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .rms-brand-sub { font-size: 0.7rem; color: #64748b; letter-spacing: 2px; }
+        .demo-banner { background: linear-gradient(135deg, #1e293b, #0f172a); padding: 0.4rem 1rem; border-radius: 40px; margin-top: 1rem; display: inline-block; font-size: 0.7rem; }
+        body.light .demo-banner { background: linear-gradient(135deg, #e2e8f0, #cbd5e1); color: #0f172a; }
+        .rms-login-card { max-width: 400px; margin: 50px auto; background: rgba(22, 27, 34, 0.8); backdrop-filter: blur(10px); border: 1px solid #30363d; border-radius: 20px; padding: 2rem; }
+        body.light .rms-login-card { background: rgba(255,255,255,0.9); border-color: #e2e8f0; }
+        .rms-input { width: 100%; padding: 0.7rem; background: #0d1117; border: 1px solid #30363d; border-radius: 10px; color: white; margin-bottom: 1rem; }
+        body.light .rms-input { background: #f1f5f9; color: #0f172a; border-color: #e2e8f0; }
+        .rms-btn { background: linear-gradient(135deg, #238636, #2ea043); color: white; padding: 0.6rem 1.2rem; border-radius: 40px; border: none; font-weight: 600; cursor: pointer; }
+        .rms-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .rms-stat-card { background: rgba(22, 27, 34, 0.8); border: 1px solid #30363d; border-radius: 16px; padding: 1rem; text-align: center; cursor: pointer; }
+        .rms-stat-card .stat-number { font-size: 1.6rem; font-weight: 700; color: #58a6ff; }
+        .rms-main-grid { display: grid; grid-template-columns: 1fr 300px; gap: 1.5rem; }
+        @media (max-width: 768px) { .rms-main-grid { grid-template-columns: 1fr; } }
+        .requests-section { background: rgba(22, 27, 34, 0.8); border: 1px solid #30363d; border-radius: 16px; overflow: hidden; }
+        body.light .requests-section { background: rgba(255,255,255,0.8); border-color: #e2e8f0; }
+        .section-header { padding: 1rem; border-bottom: 1px solid #30363d; display: flex; justify-content: space-between; align-items: center; }
+        .rms-search-bar { padding: 0.8rem 1rem; border-bottom: 1px solid #30363d; }
+        .rms-search { width: 100%; padding: 0.5rem 1rem; background: #0d1117; border: 1px solid #30363d; border-radius: 8px; color: white; }
+        .rms-request-item { padding: 1rem; border-bottom: 1px solid #30363d; cursor: pointer; transition: 0.2s; }
+        .rms-request-item:hover { background: rgba(88, 166, 255, 0.05); }
+        .rms-badge { padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.65rem; font-weight: 600; }
+        .status-pending { background: rgba(210, 153, 34, 0.15); color: #d29922; }
+        .status-sent-for-approval { background: rgba(156, 39, 176, 0.15); color: #9c27b0; }
+        .status-approved { background: rgba(63, 185, 80, 0.15); color: #3fb950; }
+        .status-resolved { background: rgba(88, 166, 255, 0.15); color: #58a6ff; }
+        .status-rejected { background: rgba(248, 81, 73, 0.15); color: #f85149; }
+        .urgency-badge { padding: 0.15rem 0.4rem; border-radius: 12px; font-size: 0.6rem; }
+        .urgency-low { background: rgba(63, 185, 80, 0.15); color: #3fb950; }
+        .urgency-medium { background: rgba(210, 153, 34, 0.15); color: #d29922; }
+        .urgency-high { background: rgba(248, 81, 73, 0.15); color: #f85149; }
+        .urgency-critical { background: rgba(156, 39, 176, 0.15); color: #9c27b0; }
+        .sidebar-card { background: rgba(22, 27, 34, 0.8); border: 1px solid #30363d; border-radius: 16px; padding: 1rem; position: sticky; top: 20px; }
+        .upgrade-card { background: linear-gradient(135deg, #1e293b, #0f172a); border-radius: 12px; padding: 1rem; text-align: center; margin-bottom: 1rem; }
+        .feature-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0; font-size: 0.75rem; border-bottom: 1px solid #30363d; }
+        .rms-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center; }
+        .rms-modal.active { display: flex; }
+        .rms-modal-content { background: #161b22; border: 1px solid #30363d; border-radius: 16px; width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto; }
+        .modal-header { padding: 1rem; border-bottom: 1px solid #30363d; display: flex; justify-content: space-between; align-items: center; }
+        .modal-body { padding: 1rem; }
+        .toast-msg { position: fixed; bottom: 20px; right: 20px; background: #1e293b; border-left: 3px solid #22c55e; padding: 10px 18px; border-radius: 10px; font-size: 0.8rem; z-index: 10000; }
+        body.light .rms-stat-card, body.light .requests-section, body.light .sidebar-card, body.light .upgrade-card, body.light .rms-request-item { background: rgba(255,255,255,0.8); border-color: #cbd5e1; color: #0f172a; }
+        body.light .rms-search { background: #f1f5f9; border-color: #cbd5e1; color: #0f172a; }
+        body.light .rms-modal-content { background: #ffffff; border-color: #cbd5e1; color: #0f172a; }
+        body.light .modal-header, body.light .modal-footer, body.light .rms-request-item, body.light .feature-item, body.light .section-header, body.light .rms-search-bar { border-color: #cbd5e1; }
+        body.light .rms-login-card { background: rgba(255,255,255,0.9); border-color: #cbd5e1; color: #0f172a; }
+        body.light .rms-input { background: #f1f5f9; border-color: #cbd5e1; color: #0f172a; }
+        body.light .toast-msg { background: #ffffff; color: #0f172a; border-color: #cbd5e1; border-left-color: #22c55e; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    </style>
+    <div class="rms-wrapper"><div class="rms-container"><div class="rms-header"><div class="rms-brand"><h1>NEXUS TECH-SOLUTIONS</h1><div class="rms-brand-sub">REQUEST MANAGEMENT SYSTEM</div></div><div class="demo-banner"><span>🚀 FREE DEMO | </span><span onclick="showUpgrade()" style="cursor:pointer;">✨ Upgrade to Premium</span></div></div>
+    <div id="rmsLoginDiv"><div class="rms-login-card"><h3 style="margin-bottom:1rem; text-align:center;">RMS Login</h3>
+    <select id="rmsLoginRole" class="rms-input" style="padding: 0.8rem; font-size: 1rem; cursor: pointer;">
+        <option value="user">Login as User</option>
+        <option value="admin">Login as Admin</option>
+        <option value="superadmin">Login as Superadmin</option>
+    </select>
+    <button class="rms-btn" style="width:100%; margin-top: 1rem;" onclick="handleRMSLogin()">Login</button></div></div>
+    <div id="rmsDashboardDiv" style="display:none;"><div class="rms-stats" id="rmsStatsDiv"></div><div class="rms-main-grid"><div class="requests-section"><div class="section-header"><span><i class="fas fa-clipboard-list"></i> Requests</span><button class="rms-btn" id="rmsCreateBtn" onclick="openRMSRequestModal()">+ New Request</button></div><div class="rms-search-bar"><input type="text" id="rmsSearchInput" class="rms-search" placeholder="🔍 Search..."></div><div id="rmsRequestsListDiv" style="max-height:500px; overflow-y:auto;"></div></div><div><div class="sidebar-card"><div class="upgrade-card"><h4 style="margin-bottom:0.5rem;">✨ Upgrade to Premium</h4><p style="font-size:0.7rem; margin-bottom:0.8rem;">Unlock all enterprise features</p><button class="rms-btn" onclick="showUpgrade()" style="width:100%;">Contact Sales →</button></div><div class="feature-item"><i class="fas fa-check-circle" style="color:#3fb950;"></i> Unlimited Requests</div><div class="feature-item"><i class="fas fa-check-circle" style="color:#3fb950;"></i> Multiple Departments</div><div class="feature-item"><i class="fas fa-check-circle" style="color:#3fb950;"></i> Full Admin & Superadmin</div><div class="feature-item"><i class="fas fa-check-circle" style="color:#3fb950;"></i> Real-time Notifications</div><div class="feature-item"><i class="fas fa-check-circle" style="color:#3fb950;"></i> Export Reports (CSV/PDF)</div><div class="feature-item"><i class="fas fa-check-circle" style="color:#3fb950;"></i> Activity Logs</div></div></div></div></div></div></div>`;
+
+    let rmsCurrentUser = null;
+    let rmsRequests = [
+        { id: 1001, department: "IT Department", urgency: "high", items: "New Laptop", desc: "Laptop not working properly", status: "pending", createdAt: new Date(Date.now() - 2*24*60*60*1000).toISOString(), requestor: "user@demo.com", adminRemark: null, superadminRemark: null },
+        { id: 1002, department: "HR Department", urgency: "medium", items: "Printer", desc: "Printer not printing", status: "approved", createdAt: new Date(Date.now() - 5*24*60*60*1000).toISOString(), requestor: "user@demo.com", adminRemark: "Approved by Admin", superadminRemark: "OK" },
+        { id: 1003, department: "Finance Department", urgency: "low", items: "Software License", desc: "Need QuickBooks license", status: "resolved", createdAt: new Date(Date.now() - 10*24*60*60*1000).toISOString(), requestor: "user2@demo.com", adminRemark: null, superadminRemark: null },
+        { id: 1004, department: "Sales Department", urgency: "critical", items: "CRM Access", desc: "CRM system down", status: "sent_for_approval", createdAt: new Date(Date.now() - 1*24*60*60*1000).toISOString(), requestor: "user@demo.com", adminRemark: "Urgent - please approve", superadminRemark: null }
+    ];
+
+    let rmsFilter = "all", rmsSearch = "";
+    let currentRMSRequestId = null;
+
+    function showToast(msg) { const t = document.createElement('div'); t.className = 'toast-msg'; t.innerHTML = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 3000); }
+
+    function handleRMSLogin() {
+        const role = document.getElementById('rmsLoginRole').value;
+        if (role === 'user') { rmsCurrentUser = { email: 'user@demo.com', name: 'John User', role: 'user', roleLabel: 'User' }; }
+        else if (role === 'admin') { rmsCurrentUser = { email: 'admin@demo.com', name: 'Sarah Admin', role: 'admin', roleLabel: 'Admin' }; }
+        else if (role === 'superadmin') { rmsCurrentUser = { email: 'superadmin@demo.com', name: 'Mike Super', role: 'superadmin', roleLabel: 'Superadmin' }; }
+        
+        document.getElementById('rmsLoginDiv').style.display = 'none';
+        document.getElementById('rmsDashboardDiv').style.display = 'block';
+        updateRMSStats();
+        renderRMSRequests();
+        showToast(`Welcome ${rmsCurrentUser.name} (${rmsCurrentUser.roleLabel})`);
+    }
+
+    function updateRMSStats() {
+        let pending=0, sent=0, approved=0, resolved=0;
+        const userReqs = rmsCurrentUser.role === 'user' ? rmsRequests.filter(r => r.requestor === rmsCurrentUser.email) : rmsRequests;
+        if (rmsCurrentUser.role === 'user') {
+            pending = userReqs.filter(r => r.status === 'pending').length;
+            sent = userReqs.filter(r => r.status === 'sent_for_approval').length;
+            approved = userReqs.filter(r => r.status === 'approved').length;
+            resolved = userReqs.filter(r => r.status === 'resolved').length;
+        } else if (rmsCurrentUser.role === 'admin') {
+            pending = rmsRequests.filter(r => r.status === 'pending').length;
+            sent = rmsRequests.filter(r => r.status === 'sent_for_approval').length;
+            approved = rmsRequests.filter(r => r.status === 'approved').length;
+            resolved = rmsRequests.filter(r => r.status === 'resolved').length;
+        } else {
+            pending = rmsRequests.filter(r => r.status === 'sent_for_approval').length;
+            approved = rmsRequests.filter(r => r.status === 'approved').length;
+            resolved = rmsRequests.filter(r => r.status === 'resolved').length;
+        }
+        document.getElementById('rmsStatsDiv').innerHTML = `<div class="rms-stat-card" onclick="filterRMS('pending')"><div class="stat-number">${pending}</div><div class="stat-label">Pending</div></div>${rmsCurrentUser.role !== 'superadmin' ? `<div class="rms-stat-card" onclick="filterRMS('sent_for_approval')"><div class="stat-number">${sent}</div><div class="stat-label">Sent for Approval</div></div>` : `<div class="rms-stat-card" onclick="filterRMS('sent_for_approval')"><div class="stat-number">${pending}</div><div class="stat-label">Awaiting Approval</div></div>`}<div class="rms-stat-card" onclick="filterRMS('approved')"><div class="stat-number">${approved}</div><div class="stat-label">Approved</div></div><div class="rms-stat-card" onclick="filterRMS('resolved')"><div class="stat-number">${resolved}</div><div class="stat-label">Resolved</div></div>`;
+    }
+
+    function filterRMS(status) { rmsFilter = status; renderRMSRequests(); updateRMSStats(); }
+
+    function renderRMSRequests() {
+        let filtered = rmsCurrentUser.role === 'user' ? rmsRequests.filter(r => r.requestor === rmsCurrentUser.email) : [...rmsRequests];
+        if (rmsFilter !== 'all') filtered = filtered.filter(r => r.status === rmsFilter);
+        if (rmsSearch) { const s = rmsSearch.toLowerCase(); filtered = filtered.filter(r => r.id.toString().includes(s) || r.department.toLowerCase().includes(s) || r.desc.toLowerCase().includes(s)); }
+        const container = document.getElementById('rmsRequestsListDiv');
+        if (filtered.length === 0) { container.innerHTML = '<div style="text-align:center; padding:2rem; color:#64748b;">No requests found</div>'; return; }
+        container.innerHTML = filtered.map(r => {
+            const canApprove = (rmsCurrentUser.role === 'admin' && r.status === 'pending');
+            const canFinalApprove = (rmsCurrentUser.role === 'superadmin' && r.status === 'sent_for_approval');
+            const canReject = (rmsCurrentUser.role === 'admin' && r.status === 'pending') || (rmsCurrentUser.role === 'superadmin' && r.status === 'sent_for_approval');
+            return `<div class="rms-request-item"><div class="request-header"><span style="color:#58a6ff;">#${r.id}</span><span class="rms-badge status-${r.status.replace(/_/g, '-')}">${r.status.replace(/_/g, ' ').toUpperCase()}</span></div><div style="font-size:0.75rem; margin-bottom:0.3rem;"><span><i class="fas fa-building"></i> ${r.department}</span> <span class="urgency-badge urgency-${r.urgency}">${r.urgency.toUpperCase()}</span> <span><i class="fas fa-user"></i> ${r.requestor}</span></div><div style="font-size:0.7rem;">${r.desc.substring(0, 80)}</div>${(canApprove || canFinalApprove || canReject) ? `<div style="display:flex; gap:0.5rem; margin-top:0.8rem;">${canApprove ? `<button class="rms-btn" style="padding:0.2rem 0.8rem; font-size:0.7rem;" onclick="openRMSApproveModal(${r.id})">📤 Send for Approval</button>` : ''}${canFinalApprove ? `<button class="rms-btn" style="padding:0.2rem 0.8rem; font-size:0.7rem; background:#3fb950;" onclick="openRMSFinalApproveModal(${r.id})">✅ Approve</button>` : ''}${canReject ? `<button class="rms-btn" style="padding:0.2rem 0.8rem; font-size:0.7rem; background:#f85149;" onclick="openRMSRejectModal(${r.id})">❌ Reject</button>` : ''}</div>` : ''}</div>`;
+        }).join('');
+    }
+
+    document.getElementById('rmsSearchInput')?.addEventListener('input', (e) => { rmsSearch = e.target.value; renderRMSRequests(); });
+
+    function openRMSRequestModal() {
+        if (rmsCurrentUser.role !== 'user') { showUpgrade(); return; }
+        document.getElementById('rmsCreateReqModal').classList.add('active');
+    }
+
+    function createRMSRequest() {
+        const dept = document.getElementById('newDept').value;
+        const urgency = document.getElementById('newUrgency').value;
+        const items = document.getElementById('newItems').value;
+        const desc = document.getElementById('newDesc').value;
+        if (!dept || !desc) { showToast('Please fill department and description'); return; }
+        const newId = Math.floor(Math.random() * 9000) + 2000;
+        rmsRequests.unshift({ id: newId, department: dept, urgency: urgency, items: items || 'N/A', desc: desc, status: 'pending', createdAt: new Date().toISOString(), requestor: rmsCurrentUser.email, adminRemark: null, superadminRemark: null });
+        document.getElementById('rmsCreateReqModal').classList.remove('active');
+        filterRMS('all');
+        updateRMSStats();
+        renderRMSRequests();
+        showToast(`Request #${newId} created successfully!`);
+    }
+
+    function openRMSApproveModal(id) {
+        if (rmsCurrentUser.role !== 'admin') { showUpgrade(); return; }
+        currentRMSRequestId = id;
+        document.getElementById('rmsApproveModal').classList.add('active');
+    }
+
+    function confirmRMSApprove() {
+        const req = rmsRequests.find(r => r.id === currentRMSRequestId);
+        if (req) { req.status = 'sent_for_approval'; req.adminRemark = document.getElementById('approveRemark').value || 'Sent for approval'; }
+        document.getElementById('rmsApproveModal').classList.remove('active');
+        updateRMSStats(); renderRMSRequests();
+        showToast(`Request #${currentRMSRequestId} sent for superadmin approval`);
+    }
+
+    function openRMSFinalApproveModal(id) {
+        if (rmsCurrentUser.role !== 'superadmin') { showUpgrade(); return; }
+        currentRMSRequestId = id;
+        document.getElementById('rmsFinalApproveModal').classList.add('active');
+    }
+
+    function confirmRMSFinalApprove() {
+        const req = rmsRequests.find(r => r.id === currentRMSRequestId);
+        if (req) { req.status = 'approved'; req.superadminRemark = document.getElementById('finalRemark').value || 'Approved by superadmin'; }
+        document.getElementById('rmsFinalApproveModal').classList.remove('active');
+        updateRMSStats(); renderRMSRequests();
+        showToast(`Request #${currentRMSRequestId} approved successfully!`);
+    }
+
+    function openRMSRejectModal(id) {
+        currentRMSRequestId = id;
+        document.getElementById('rmsRejectModal').classList.add('active');
+    }
+
+    function confirmRMSReject() {
+        const reason = document.getElementById('rejectReason').value;
+        if (!reason) { showToast('Please provide rejection reason'); return; }
+        const req = rmsRequests.find(r => r.id === currentRMSRequestId);
+        if (req) { req.status = 'rejected'; if (rmsCurrentUser.role === 'admin') req.adminRemark = reason; else req.superadminRemark = reason; }
+        document.getElementById('rmsRejectModal').classList.remove('active');
+        updateRMSStats(); renderRMSRequests();
+        showToast(`Request #${currentRMSRequestId} rejected`);
+    }
+
+    function openRMSModal() {
+        const modal = document.getElementById('rmsModal');
+        const container = document.getElementById('rmsToolContainer');
+        if (container) {
+            container.innerHTML = rmsToolHTML;
+            setTimeout(() => {
+                window.handleRMSLogin = handleRMSLogin;
+                window.filterRMS = filterRMS;
+                window.openRMSRequestModal = openRMSRequestModal;
+                window.createRMSRequest = createRMSRequest;
+                window.openRMSApproveModal = openRMSApproveModal;
+                window.confirmRMSApprove = confirmRMSApprove;
+                window.openRMSFinalApproveModal = openRMSFinalApproveModal;
+                window.confirmRMSFinalApprove = confirmRMSFinalApprove;
+                window.openRMSRejectModal = openRMSRejectModal;
+                window.confirmRMSReject = confirmRMSReject;
+                window.showUpgrade = showUpgrade;
+            }, 50);
+        }
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeRMSModal() { document.getElementById('rmsModal').classList.remove('active'); document.body.style.overflow = ''; }
+
+    // RMS Modals HTML
+    const rmsModalsHTML = `
+    <div id="rmsCreateReqModal" class="rms-modal"><div class="rms-modal-content"><div class="modal-header"><h3>Create New Request</h3><button onclick="document.getElementById('rmsCreateReqModal').classList.remove('active')" style="background:none; border:none; color:#8b949e; font-size:1.5rem; cursor:pointer;">&times;</button></div><div class="modal-body"><div class="form-group"><label>Department</label><select id="newDept" class="form-control"><option value="">Select Department</option><option value="IT Department">💻 IT Department</option><option value="Finance Department">💰 Finance Department</option><option value="HR Department">👥 HR Department</option><option value="Sales Department">📈 Sales Department</option><option value="Audit Department">🔍 Audit Department</option><option value="Legal Department">⚖️ Legal Department</option><option value="Marketing Department">📢 Marketing Department</option><option value="Operations Department">⚙️ Operations Department</option><option value="Head Office">🏢 Head Office</option><option value="Boss Room">👔 Boss Room</option></select></div><div class="form-group"><label>Urgency</label><select id="newUrgency" class="form-control"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option><option value="critical">Critical</option></select></div><div class="form-group"><label>Required Items</label><input type="text" id="newItems" class="form-control" placeholder="e.g., Laptop, Software..."></div><div class="form-group"><label>Description</label><textarea id="newDesc" class="form-control" rows="3" placeholder="Describe the issue..."></textarea></div></div><div class="modal-footer" style="padding:1rem; border-top:1px solid #30363d; display:flex; justify-content:flex-end; gap:0.5rem;"><button class="btn-secondary" onclick="document.getElementById('rmsCreateReqModal').classList.remove('active')" style="background:#0d1117; border:1px solid #30363d; color:#c9d1d9; padding:0.5rem 1rem; border-radius:8px; cursor:pointer;">Cancel</button><button class="btn-primary" onclick="createRMSRequest()" style="background:#238636; color:white; padding:0.5rem 1rem; border-radius:8px; border:none; cursor:pointer;">Submit</button></div></div></div>
+    <div id="rmsApproveModal" class="rms-modal"><div class="rms-modal-content"><div class="modal-header"><h3>Send for Approval</h3><button onclick="document.getElementById('rmsApproveModal').classList.remove('active')" style="background:none; border:none; color:#8b949e; font-size:1.5rem; cursor:pointer;">&times;</button></div><div class="modal-body"><div class="form-group"><label>Remarks</label><textarea id="approveRemark" class="form-control" rows="3" placeholder="Add any remarks..."></textarea></div></div><div class="modal-footer" style="padding:1rem; border-top:1px solid #30363d; display:flex; justify-content:flex-end; gap:0.5rem;"><button class="btn-secondary" onclick="document.getElementById('rmsApproveModal').classList.remove('active')" style="background:#0d1117; border:1px solid #30363d; color:#c9d1d9; padding:0.5rem 1rem; border-radius:8px; cursor:pointer;">Cancel</button><button class="btn-primary" onclick="confirmRMSApprove()" style="background:#238636; color:white; padding:0.5rem 1rem; border-radius:8px; border:none; cursor:pointer;">Send for Approval</button></div></div></div>
+    <div id="rmsFinalApproveModal" class="rms-modal"><div class="rms-modal-content"><div class="modal-header"><h3>Final Approval</h3><button onclick="document.getElementById('rmsFinalApproveModal').classList.remove('active')" style="background:none; border:none; color:#8b949e; font-size:1.5rem; cursor:pointer;">&times;</button></div><div class="modal-body"><div class="form-group"><label>Remarks</label><textarea id="finalRemark" class="form-control" rows="3" placeholder="Add approval remarks..."></textarea></div></div><div class="modal-footer" style="padding:1rem; border-top:1px solid #30363d; display:flex; justify-content:flex-end; gap:0.5rem;"><button class="btn-secondary" onclick="document.getElementById('rmsFinalApproveModal').classList.remove('active')" style="background:#0d1117; border:1px solid #30363d; color:#c9d1d9; padding:0.5rem 1rem; border-radius:8px; cursor:pointer;">Cancel</button><button class="btn-primary" onclick="confirmRMSFinalApprove()" style="background:#3fb950; color:white; padding:0.5rem 1rem; border-radius:8px; border:none; cursor:pointer;">Approve</button></div></div></div>
+    <div id="rmsRejectModal" class="rms-modal"><div class="rms-modal-content"><div class="modal-header"><h3>Reject Request</h3><button onclick="document.getElementById('rmsRejectModal').classList.remove('active')" style="background:none; border:none; color:#8b949e; font-size:1.5rem; cursor:pointer;">&times;</button></div><div class="modal-body"><div class="form-group"><label>Rejection Reason</label><textarea id="rejectReason" class="form-control" rows="3" placeholder="Please provide reason..."></textarea></div></div><div class="modal-footer" style="padding:1rem; border-top:1px solid #30363d; display:flex; justify-content:flex-end; gap:0.5rem;"><button class="btn-secondary" onclick="document.getElementById('rmsRejectModal').classList.remove('active')" style="background:#0d1117; border:1px solid #30363d; color:#c9d1d9; padding:0.5rem 1rem; border-radius:8px; cursor:pointer;">Cancel</button><button class="btn-danger" onclick="confirmRMSReject()" style="background:#f85149; color:white; padding:0.5rem 1rem; border-radius:8px; border:none; cursor:pointer;">Reject</button></div></div></div>`;
+    const rmsModalsDiv = document.createElement('div'); rmsModalsDiv.innerHTML = rmsModalsHTML; document.body.appendChild(rmsModalsDiv);
+
+    // ========== IT TICKETING SYSTEM ==========
+    const ticketToolHTML = `
+    <style>
+        .ticket-wrapper { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #0d1117 0%, #161b22 100%); color: #c9d1d9; min-height: 100vh; padding: 1.5rem; }
+        body.light .ticket-wrapper { background: linear-gradient(135deg, #eef2ff 0%, #ffffff 100%); color: #0f172a; }
+        .ticket-container { max-width: 1200px; margin: 0 auto; }
+        .ticket-header { text-align: center; margin-bottom: 2rem; }
+        .ticket-brand h1 { font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .demo-banner { background: linear-gradient(135deg, #1e293b, #0f172a); padding: 0.4rem 1rem; border-radius: 40px; margin-top: 1rem; display: inline-block; font-size: 0.7rem; }
+        .ticket-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .ticket-stat-card { background: rgba(22, 27, 34, 0.8); border: 1px solid #30363d; border-radius: 16px; padding: 1rem; text-align: center; }
+        .ticket-stat-card .stat-number { font-size: 1.8rem; font-weight: 700; color: #58a6ff; }
+        .ticket-list { background: rgba(22, 27, 34, 0.8); border: 1px solid #30363d; border-radius: 16px; overflow: hidden; }
+        .ticket-item { padding: 1rem; border-bottom: 1px solid #30363d; cursor: pointer; }
+        .ticket-item:hover { background: rgba(88, 166, 255, 0.05); }
+        .priority-high { color: #f85149; }
+        .priority-medium { color: #d29922; }
+        .priority-low { color: #3fb950; }
+        .btn-ticket { background: #238636; color: white; padding: 0.5rem 1rem; border-radius: 40px; border: none; cursor: pointer; }
+        .create-form { background: rgba(22, 27, 34, 0.8); border: 1px solid #30363d; border-radius: 16px; padding: 1rem; margin-bottom: 1.5rem; }
+        .form-row-ticket { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+        body.light .ticket-stat-card, body.light .ticket-list, body.light .create-form, body.light .ticket-item { background: rgba(255,255,255,0.8); border-color: #cbd5e1; color: #0f172a; }
+        body.light .ticket-item, body.light .ticket-list > div { border-color: #cbd5e1; }
+    </style>
+    <div class="ticket-wrapper"><div class="ticket-container"><div class="ticket-header"><div class="ticket-brand"><h1>IT Ticketing System</h1></div><div class="demo-banner"><span>🚀 FREE DEMO | </span><span onclick="showUpgrade()" style="cursor:pointer;">✨ Upgrade to Premium</span></div></div>
+    <div class="ticket-stats"><div class="ticket-stat-card"><div class="stat-number" id="ticketTotal">0</div><div class="stat-label">Total Tickets</div></div><div class="ticket-stat-card"><div class="stat-number" id="ticketOpen" style="color:#d29922;">0</div><div class="stat-label">Open</div></div><div class="ticket-stat-card"><div class="stat-number" id="ticketClosed" style="color:#3fb950;">0</div><div class="stat-label">Closed</div></div></div>
+    <div class="create-form"><h3 style="margin-bottom:1rem;">Create New Ticket</h3><div class="form-row-ticket"><input type="text" id="ticketTitle" class="form-control" placeholder="Title *"><select id="ticketPriority" class="form-control"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option></select></div><textarea id="ticketDesc" class="form-control" rows="2" placeholder="Description *"></textarea><button class="btn-ticket" style="margin-top:1rem;" onclick="createNewTicket()">Create Ticket</button></div>
+    <div class="ticket-list"><div style="padding:1rem; border-bottom:1px solid #30363d;"><h3>Open Tickets</h3></div><div id="ticketsList"></div></div></div></div>`;
+
+    let ticketsData = [
+        { id: 1001, title: "Printer not working", priority: "high", description: "Office printer showing error", status: "open", date: new Date().toLocaleDateString() },
+        { id: 1002, title: "Software installation", priority: "medium", description: "Need Adobe installed", status: "open", date: new Date().toLocaleDateString() }
+    ];
+
+    function updateTicketStats() {
+        const total = ticketsData.length;
+        const open = ticketsData.filter(t => t.status === 'open').length;
+        const closed = ticketsData.filter(t => t.status === 'closed').length;
+        if (document.getElementById('ticketTotal')) document.getElementById('ticketTotal').innerText = total;
+        if (document.getElementById('ticketOpen')) document.getElementById('ticketOpen').innerText = open;
+        if (document.getElementById('ticketClosed')) document.getElementById('ticketClosed').innerText = closed;
+    }
+    function renderTickets() {
+        const container = document.getElementById('ticketsList');
+        if (!container) return;
+        const openTickets = ticketsData.filter(t => t.status === 'open');
+        if (openTickets.length === 0) { container.innerHTML = '<div style="text-align:center; padding:2rem;">No open tickets</div>'; return; }
+        container.innerHTML = openTickets.map(t => `<div class="ticket-item" onclick="showToast('Viewing Ticket #' + ${t.id} + ': ' + '${t.title}')"><div><strong>#${t.id}</strong> - ${t.title}</div><div class="priority-${t.priority}" style="font-size:0.7rem;">${t.priority.toUpperCase()} Priority</div><div style="font-size:0.7rem;">${t.date}</div></div>`).join('');
+    }
+    function createNewTicket() {
+        const title = document.getElementById('ticketTitle')?.value;
+        const priority = document.getElementById('ticketPriority')?.value;
+        const desc = document.getElementById('ticketDesc')?.value;
+        if (!title || !desc) { alert('Please fill title and description'); return; }
+        const newId = Math.floor(Math.random() * 9000) + 2000;
+        ticketsData.unshift({ id: newId, title: title, priority: priority, description: desc, status: 'open', date: new Date().toLocaleDateString() });
+        if (document.getElementById('ticketTitle')) document.getElementById('ticketTitle').value = '';
+        if (document.getElementById('ticketDesc')) document.getElementById('ticketDesc').value = '';
+        updateTicketStats(); renderTickets();
+        showToast(`Ticket #${newId} created successfully!`);
+    }
+    function initTicketModal() { updateTicketStats(); renderTickets(); window.createNewTicket = createNewTicket; }
+    function openTicketModal() { const modal = document.getElementById('ticketModal'); const container = document.getElementById('ticketToolContainer'); if (container) { container.innerHTML = ticketToolHTML; setTimeout(initTicketModal, 50); } modal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeTicketModal() { document.getElementById('ticketModal').classList.remove('active'); document.body.style.overflow = ''; }
+
+    // ========== MENU LCD ==========
+    const menuLCDHTML = `
+    <style>
+        .lcd-wrapper { font-family: 'Inter', sans-serif; background: radial-gradient(circle at 30% 20%, #0a0a14 0%, #020208 100%); color: #e2e8f0; min-height: 100vh; }
+        .demo-banner-lcd { background: linear-gradient(135deg, #1e293b, #0f172a); padding: 0.6rem 1rem; text-align: center; display: flex; justify-content: center; align-items: center; gap: 1rem; font-size: 0.75rem; }
+        .display-stage-lcd { position: relative; width: 100%; height: calc(100vh - 50px); overflow: hidden; }
+        .media-container-lcd { width: 100%; height: 100%; position: relative; }
+        .slide-image-lcd { width: 100%; height: 100%; object-fit: cover; position: absolute; opacity: 0; transition: opacity 1s ease; }
+        .slide-image-lcd.active { opacity: 1; z-index: 2; }
+        .brand-watermark-lcd { position: absolute; bottom: 20px; left: 30px; color: rgba(255,255,255,0.4); font-size: 11px; z-index: 6; }
+        .time-display-lcd { position: absolute; bottom: 20px; right: 30px; color: rgba(255,255,255,0.6); font-size: 12px; z-index: 6; background: rgba(0,0,0,0.3); padding: 5px 14px; border-radius: 40px; }
+        .slide-counter-lcd { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.5); font-size: 11px; z-index: 6; background: rgba(0,0,0,0.4); padding: 4px 12px; border-radius: 20px; }
+        .admin-panel-lcd { position: fixed; top: 0; right: -600px; width: 600px; height: 100vh; background: #0a0a12; z-index: 3000; transition: right 0.35s; overflow-y: auto; }
+        .admin-panel-lcd.open { right: 0; }
+        .upload-area-lcd { background: rgba(255,255,255,0.03); margin: 20px; border-radius: 20px; padding: 24px; border: 1px dashed #6366f1; text-align: center; cursor: pointer; }
+        .gallery-grid-lcd { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 20px; max-height: 400px; overflow-y: auto; }
+        @media (max-width: 768px) { .admin-panel-lcd { width: 100%; right: -100%; } .gallery-grid-lcd { grid-template-columns: 1fr; } }
+        .btn-lcd { background: #6366f1; color: white; border: none; padding: 8px 20px; border-radius: 40px; cursor: pointer; }
+    </style>
+    <div class="lcd-wrapper"><div class="demo-banner-lcd"><span style="background:#6366f1; padding:0.2rem 1rem; border-radius:30px;">🚀 FREE DEMO</span><span>Digital Signage System</span><span onclick="showUpgrade()" style="cursor:pointer; background:linear-gradient(135deg,#6366f1,#4f46e5); padding:0.2rem 1rem; border-radius:30px;">✨ Upgrade to Premium</span></div>
+    <div class="display-stage-lcd" id="lcdStageDisplay"><div class="media-container-lcd"><img id="lcdImage" class="slide-image-lcd" alt="Display"><div class="brand-watermark-lcd">NEXUS DIGITAL SIGNAGE</div><div class="time-display-lcd" id="lcdClock"></div><div class="slide-counter-lcd" id="lcdCounter">1 / 3</div></div></div>
+    <div class="admin-panel-lcd" id="lcdAdminPanel"><div style="background:#0f0f18; padding:20px;"><h2>Media Manager</h2><button onclick="closeLCDPanel()" style="float:right; background:#ef4444; color:white; border:none; width:35px; height:35px; border-radius:50%; cursor:pointer;">×</button></div>
+    <div class="upload-area-lcd" id="lcdUploadZone"><i class="fas fa-cloud-upload-alt" style="font-size:44px; color:#6366f1;"></i><p>Drop images here</p><input type="file" id="lcdFileInput" multiple accept="image/*" style="display:none"><button class="btn-lcd" onclick="document.getElementById('lcdFileInput').click()" style="margin-top:12px;">Select Files</button></div>
+    <div class="gallery-grid-lcd" id="lcdGallery"></div></div></div>`;
+
+    let lcdImages = [
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1920&h=1080&fit=crop",
+        "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1920&h=1080&fit=crop",
+        "https://images.unsplash.com/photo-1554224154-26032ffc0a07?w=1920&h=1080&fit=crop"
+    ];
+    let lcdCurrentIndex = 0, lcdTimer = null;
+
+    function renderLCDSlide() { const img = document.getElementById('lcdImage'); if (img) { img.src = lcdImages[lcdCurrentIndex]; img.classList.add('active'); document.getElementById('lcdCounter').innerHTML = `${lcdCurrentIndex+1} / ${lcdImages.length}`; } }
+    function nextLCDSlide() { lcdCurrentIndex = (lcdCurrentIndex + 1) % lcdImages.length; renderLCDSlide(); }
+    function startLCDTimer() { if (lcdTimer) clearInterval(lcdTimer); lcdTimer = setInterval(nextLCDSlide, 5000); }
+    function renderLCDGallery() { const container = document.getElementById('lcdGallery'); if (!container) return; container.innerHTML = lcdImages.map((img, i) => `<div style="background:rgba(255,255,255,0.05); border-radius:12px; overflow:hidden;"><img src="${img}" style="width:100%; height:80px; object-fit:cover;"><div style="padding:8px; display:flex; justify-content:space-between;"><span>Image ${i+1}</span><button onclick="deleteLCDImage(${i})" style="background:#ef4444; border:none; color:white; border-radius:8px; padding:2px 8px;">Delete</button></div></div>`).join(''); }
+    function deleteLCDImage(i) { lcdImages.splice(i, 1); if (lcdImages.length === 0) lcdImages = ["https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1920&h=1080&fit=crop"]; if (lcdCurrentIndex >= lcdImages.length) lcdCurrentIndex = 0; renderLCDSlide(); renderLCDGallery(); }
+    function addLCDImages(files) { for (let f of files) { if (f.type.startsWith('image/')) { const reader = new FileReader(); reader.onload = e => { lcdImages.push(e.target.result); renderLCDGallery(); if (lcdImages.length === 1) renderLCDSlide(); }; reader.readAsDataURL(f); } } }
+    function openLCDPanel() { document.getElementById('lcdAdminPanel').classList.add('open'); }
+    function closeLCDPanel() { document.getElementById('lcdAdminPanel').classList.remove('open'); }
+    function initMenuLCD() { renderLCDSlide(); startLCDTimer(); renderLCDGallery(); document.getElementById('lcdFileInput')?.addEventListener('change', e => addLCDImages(Array.from(e.target.files))); const uploadZone = document.getElementById('lcdUploadZone'); if (uploadZone) { uploadZone.addEventListener('dragover', e => e.preventDefault()); uploadZone.addEventListener('drop', e => { e.preventDefault(); addLCDImages(Array.from(e.dataTransfer.files)); }); } document.getElementById('lcdStageDisplay')?.addEventListener('dblclick', () => openLCDPanel()); function updateLCDClock() { const now = new Date(); document.getElementById('lcdClock').innerHTML = now.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' }); } setInterval(updateLCDClock, 1000); updateLCDClock(); window.deleteLCDImage = deleteLCDImage; window.closeLCDPanel = closeLCDPanel; }
+    function openMenuLCDModal() { const modal = document.getElementById('menuLCDModal'); const container = document.getElementById('menuLCDContainer'); if (container) { container.innerHTML = menuLCDHTML; setTimeout(initMenuLCD, 50); } modal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeMenuLCDModal() { document.getElementById('menuLCDModal').classList.remove('active'); document.body.style.overflow = ''; }
+
+    window.openMonitorTool = openMonitorTool; window.closeMonitorTool = closeMonitorTool;
+    window.openRMSModal = openRMSModal; window.closeRMSModal = closeRMSModal;
+    window.openTicketModal = openTicketModal; window.closeTicketModal = closeTicketModal;
+    window.openMenuLCDModal = openMenuLCDModal; window.closeMenuLCDModal = closeMenuLCDModal;
+    window.adminLogin = adminLogin; window.closeAdminPanel = closeAdminPanel;
+    window.deleteMessage = deleteMessage; window.addNewMessage = addNewMessage;
+    window.editMessage = editMessage; window.replyToClient = replyToClient;
+    window.showUpgrade = showUpgrade;
 </script>
 </body>
 </html>
